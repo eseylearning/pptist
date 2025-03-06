@@ -41,7 +41,7 @@ const { databaseId } = storeToRefs(mainStore);
 const { slides } = storeToRefs(slidesStore);
 const { screening } = storeToRefs(useScreenStore());
 
-const ipptId = ref<string>("");
+const ipptId = ref<any>("");
 const firstPost = ref<boolean>(false);
 
 const timer = ref<any>(null);
