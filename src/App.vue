@@ -72,16 +72,18 @@ onMounted(async () => {
   const firstUrl = urlParams.get("url");
 
   const res = await api.getPPTinfo({ id: ipptId.value });
-  let { ppt_url } = res.info;
+  let { ppt_url, ppt_name } = res.info;
   const obj = JSON.parse(ppt_url);
-
-  importPPTXFile(obj.pptList || obj.url || firstUrl);
+  slidesStore.setTitle(ppt_name);
+  importPPTXFile(obj.url || firstUrl);
 
   await deleteDiscardedDB();
   snapshotStore.initSnapshotDatabase();
 
   timer.value = setInterval(() => {
-    saveServer();
+    if (firstPost.value) {
+      saveServer();
+    }
   }, 10000);
 });
 
@@ -91,17 +93,14 @@ onUnmounted(() => {
 
 const saveServer = async () => {
   const file1 = await exportPPTX(slides.value, true, true);
-  const file2 = await exportSpecificFile(slides.value);
+  // const file2 = await exportSpecificFile(slides.value);
   try {
-    const [res1, res2] = await Promise.all([
-      api.uploadFile(file1),
-      api.uploadFile(file2),
-    ]);
+    const res1 = await api.uploadFile(file1);
 
     const ppt_url = res1.info.file_url;
-    const pptist = res2.info.file_url;
+    // const pptist = res2.info.file_url;
 
-    api.resultupdate({ ppt_url, pptist, id: ipptId.value });
+    api.resultupdate({ ppt_url, pptist: "xxx", id: ipptId.value });
   } catch (e) {}
 };
 

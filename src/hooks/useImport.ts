@@ -1,6 +1,8 @@
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
-import { parse, type Shape, type Element, type ChartItem } from "pptxtojson";
+import { type Shape, type Element, type ChartItem } from "pptxtojson";
+// @ts-ignore
+import { parse } from "./ppt/pptxtojson.js";
 import { nanoid } from "nanoid";
 import { useSlidesStore } from "@/store";
 import { decrypt } from "@/utils/crypto";
@@ -139,6 +141,46 @@ export default () => {
     return { x: graphicX, y: graphicY };
   };
 
+  const setBgColor = (el: any) => {
+    return el.fillColor || "none";
+  };
+  const isCircle = (path: any) => {
+    // 检查是否包含弧形 (A) 或贝塞尔曲线 (C/Q) 语法
+    const hasArc =
+      /A\s*[\d.]+,[\d.]+\s*[\d.]+\s*[01],[01]\s*[\d.-]+,[\d.-]+/i.test(path);
+    const hasCurve = /[CQ]\s*[\d.-]+,[\d.-]+\s*[\d.-]+,[\d.-]+/i.test(path);
+
+    // 如果路径只包含 M 和 L，说明是多边形，不可能是圆
+    const isPolygon = /^[ML]\s*[\d.-]+,[\d.-]+\s*L\s*[\d.-]+,[\d.-]+/i.test(
+      path
+    );
+
+    if (isPolygon) return false; // 直线多边形，肯定不是圆
+
+    // 如果包含 A（弧线）或 C/Q（曲线），可能是圆
+    return hasArc || hasCurve;
+  };
+
+  const isTriangle = (path: any) => {
+    const points = path.match(/[\d.-]+,[\d.-]+/g);
+    if (!points) return false;
+
+    // 转换为唯一坐标点数组
+    const uniquePoints = [...new Set(points)]; // 去重
+
+    // 如果唯一顶点数为 3，则判定为三角形
+    return uniquePoints.length === 3;
+  };
+  const isPentagon = (path: any) => {
+    const points = path.match(/[\d.-]+,[\d.-]+/g);
+    if (!points) return false;
+
+    // 转换为唯一坐标点数组
+    const uniquePoints = [...new Set(points)]; // 去重
+
+    // 如果唯一顶点数为 5，则判定为五边形
+    return uniquePoints.length === 5;
+  };
   const pptximport = (url: any) => {
     urlToFile(
       url
@@ -181,7 +223,7 @@ export default () => {
               type: "gradient",
               gradient: {
                 type: "linear",
-                colors: value.colors.map((item) => ({
+                colors: value.colors.map((item: any) => ({
                   ...item,
                   pos: parseInt(item.pos),
                 })),
@@ -292,6 +334,49 @@ export default () => {
                   const lineElement = parseLineElement(el);
                   slide.elements.push(lineElement);
                 } else {
+                  if (el.shapType === "custom") {
+                    // if (el.path!.indexOf("NaN") !== -1) element.path = "";
+                    // else {
+                    //   // element.special = true;
+                    //   element.path = el.path!;
+
+                    //   const { maxX, maxY } = getSvgPathRange(element.path);
+                    //   element.viewBox = [
+                    //     maxX || originWidth,
+                    //     maxY || originHeight,
+                    //   ];
+                    // }
+
+                    if (isPentagon(el.path)) {
+                      el.path =
+                        "M 50 0 L 150 0 Q 200 0 200 50 L 200 150 Q 200 200 150 200 L 50 200 Q 0 200 0 150 L 0 50 Q 0 0 50 0 Z";
+                      el.pathFormula = "roundRect";
+                      el.shapType = "roundRect";
+                    }
+
+                    if (isCircle(el.path)) {
+                      el.path =
+                        "M 100 0 A 50 50 0 1 1 100 200 A 50 50 0 1 1 100 0 Z";
+                      el.pathFormula = "ellipse";
+                      el.shapType = "ellipse";
+                    }
+                    if (isTriangle(el.path)) {
+                      el.path = "M 100 0 L 0 200 L 200 200 L 100 0 Z";
+                      el.pathFormula = "triangle";
+                      el.shapType = "triangle";
+                    }
+
+                    if (
+                      el.path ==
+                      " M14.325118110236218,5.625826771653542 M14.325118110236218,5.625826771653542 L8.939842519685037,5.5429921259842505 L7.199999999999998,0.48913385826771644 L5.460157480314959,5.5429921259842505 L0.0748818897637795,5.625826771653542 L4.383070866141732,8.857007874015746 L2.726062992125984,13.993700787401572 L7.117165354330707,10.84543307086614 L11.50818897637795,13.993700787401572 L9.851181102362203,8.857007874015746 L14.325118110236218,5.625826771653542z"
+                    ) {
+                      el.path =
+                        "M1018.67652554 400.05983681l-382.95318779-5.89158658L512 34.78141155 388.27666225 394.16825023l-382.95318779 5.89158658L311.68602415 629.83174977l-117.83174978 365.27842665 312.25413766-223.88032637 312.25413904 223.88032637-117.83175116-365.27842665 318.14572563-229.77191296z";
+                      el.pathFormula = "star5";
+                      el.shapType = "star5";
+                      el.special = true;
+                    }
+                  }
                   const shape = shapeList.find(
                     (item) => item.pptxShapeType === el.shapType
                   );
@@ -311,7 +396,7 @@ export default () => {
                     top: el.top,
                     viewBox: [200, 200],
                     path: "M 0 0 L 200 0 L 200 200 L 0 200 Z",
-                    fill: el.fillColor || "none",
+                    fill: setBgColor(el),
                     fixedRatio: false,
                     rotate: el.rotate,
                     outline: {
@@ -359,19 +444,6 @@ export default () => {
                         element.keypoints = pathFormula.defaultValue;
                       } else
                         element.path = pathFormula.formula(el.width, el.height);
-                    }
-                  }
-                  if (el.shapType === "custom") {
-                    if (el.path!.indexOf("NaN") !== -1) element.path = "";
-                    else {
-                      element.special = true;
-                      element.path = el.path!;
-
-                      const { maxX, maxY } = getSvgPathRange(element.path);
-                      element.viewBox = [
-                        maxX || originWidth,
-                        maxY || originHeight,
-                      ];
                     }
                   }
 
