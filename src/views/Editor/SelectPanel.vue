@@ -3,15 +3,15 @@
     class="select-panel" 
     :width="200" 
     :height="360" 
-    :title="`选择（${activeElementIdList.length}/${currentSlide.elements.length}）`" 
+    :title="`${t('ppt.select')}（${activeElementIdList.length}/${currentSlide.elements.length}）`"
     :left="-270" 
     :top="90"
     @close="close()"
   >
     <div class="handler" v-if="elements.length">
       <div class="btns">
-        <Button size="small" style="margin-right: 5px;" @click="showAllElements()">全部显示</Button>
-        <Button size="small" @click="hideAllElements()">全部隐藏</Button>
+        <Button size="small" style="margin-right: 5px;" @click="showAllElements()">{{ t('ppt.showAll') }}</Button>
+        <Button size="small" @click="hideAllElements()">{{ t('ppt.hideAll') }}</Button>
       </div>
       <div class="icon-btns" v-if="handleElement">
         <IconDown class="icon-btn" @click="orderElement(handleElement!, ElementOrderCommands.UP)" />
@@ -21,7 +21,7 @@
     <div class="element-list">
       <template v-for="item in elements" :key="item.id">
         <div class="group-els" v-if="item.type === 'group'">
-          <div class="group-title">组合</div>
+          <div class="group-title">{{ t('ppt.group') }}</div>
           <div 
             class="item" 
             :class="{
@@ -89,6 +89,8 @@ import { ElementOrderCommands } from '@/types/edit'
 
 import MoveablePanel from '@/components/MoveablePanel.vue'
 import Button from '@/components/Button.vue'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 const slidesStore = useSlidesStore()
 const mainStore = useMainStore()

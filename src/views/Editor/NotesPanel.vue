@@ -3,7 +3,7 @@
     class="notes-panel"
     :width="300"
     :height="560"
-    :title="`幻灯片${slideIndex + 1}的批注`"
+    :title="`{{ t('ppt.notesForSlide') }}${slideIndex + 1}`"
     :left="-270"
     :top="90"
     :minWidth="300"
@@ -33,9 +33,9 @@
               </div>
             </div>
             <div class="btns">
-              <div class="btn reply" @click="replyNoteId = note.id">回复</div>
+              <div class="btn reply" @click="replyNoteId = note.id">{{ t('ppt.reply') }}</div>
               <div class="btn delete" @click.stop="deleteNote(note.id)">
-                删除
+                {{ t('ppt.delete') }}
               </div>
             </div>
           </div>
@@ -61,7 +61,7 @@
                     class="btn delete"
                     @click.stop="deleteReply(note.id, reply.id)"
                   >
-                    删除
+                    {{ t('ppt.delete') }}
                   </div>
                 </div>
               </div>
@@ -72,34 +72,32 @@
             <TextArea
               :padding="6"
               v-model:value="replyContent"
-              placeholder="输入回复内容"
+              :placeholder="t('ppt.enterReplyContent')"
               :rows="1"
               @enter.prevent="createNoteReply()"
             />
             <div class="reply-btns">
               <Button class="btn" size="small" @click="replyNoteId = ''"
-                >取消</Button
+                >{{ t('ppt.cancel') }}</Button
               >
               <Button
                 class="btn"
                 size="small"
                 type="primary"
                 @click="createNoteReply()"
-                >回复</Button
+                >{{ t('ppt.reply') }}</Button
               >
             </div>
           </div>
         </div>
-        <div class="empty" v-if="!notes.length">本页暂无批注</div>
+        <div class="empty" v-if="!notes.length">{{ t('ppt.noNotesForPage') }}</div>
       </div>
       <div class="send">
         <TextArea
           ref="textAreaRef"
           v-model:value="content"
           :padding="6"
-          :placeholder="`输入批注（为${
-            handleElementId ? '选中元素' : '当前页幻灯片'
-          }）`"
+          :placeholder="t('ppt.enterNoteContent', { element: handleElementId ? t('ppt.selectedElement') : t('ppt.currentSlide') })"
           :rows="2"
           @focus="
             replyNoteId = '';
@@ -110,7 +108,7 @@
         <div class="footer">
           <IconDelete
             class="btn icon"
-            v-tooltip="'清空本页批注'"
+            :v-tooltip="t('ppt.clearNotesForPage')"
             style="flex: 1"
             @click="clear()"
           />
@@ -119,7 +117,7 @@
             class="btn"
             style="flex: 12"
             @click="createNote()"
-            >添加批注</Button
+            >{{ t('ppt.addNote') }}</Button
           >
         </div>
       </div>
@@ -137,6 +135,8 @@ import type { Note } from "@/types/slides";
 import MoveablePanel from "@/components/MoveablePanel.vue";
 import TextArea from "@/components/TextArea.vue";
 import Button from "@/components/Button.vue";
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 const slidesStore = useSlidesStore();
 const mainStore = useMainStore();
