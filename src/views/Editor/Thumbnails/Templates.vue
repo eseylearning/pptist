@@ -16,7 +16,7 @@
         <ThumbnailSlide class="thumbnail" :slide="slide" :size="180" />
 
         <div class="btns">
-          <Button class="btn" type="primary" size="small" @click="insertTemplate(slide)">插入模板</Button>
+          <Button class="btn" type="primary" size="small" @click="insertTemplate(slide)">{{ t('ppt.insertTemplate') }}</Button>
         </div>
       </div>
     </div>
@@ -33,6 +33,9 @@ import api from '@/services'
 import ThumbnailSlide from '@/views/components/ThumbnailSlide/index.vue'
 import Button from '@/components/Button.vue'
 import Tabs from '@/components/Tabs.vue'
+
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 interface TabItem {
   key: string

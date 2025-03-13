@@ -4,7 +4,7 @@
     <Editor v-else-if="_isPC" />
     <Mobile v-else />
   </template>
-  <FullscreenSpin tip="数据初始化中，请稍等 ..." v-else loading :mask="false" />
+  <FullscreenSpin :tip="t('ppt.wait')" v-else loading :mask="false" />
 </template>
 
 <script lang="ts" setup>
@@ -29,6 +29,8 @@ import Mobile from "./views/Mobile/index.vue";
 import FullscreenSpin from "@/components/FullscreenSpin.vue";
 import useImport from "@/hooks/useImport";
 import useExport from "@/hooks/useExport";
+import { useI18n } from "vue-i18n";
+const { t, locale } = useI18n();
 
 const { exportSpecificFile, exportPPTX } = useExport();
 const { importPPTXFile } = useImport();
@@ -45,17 +47,23 @@ const ipptId = ref<any>("");
 const firstPost = ref<boolean>(false);
 
 const timer = ref<any>(null);
+const url = location.search;
+const urlParams = new URLSearchParams(url);
 
+const lang = urlParams.get("lang");
+
+locale.value = lang;
+console.log(locale.value);
 watch(
   () => slides.value,
   (val, old) => {
     if (firstPost.value) {
       return;
     }
-    nextTick(() => {
-      firstPost.value = true;
-      saveServer();
-    });
+    // nextTick(() => {
+    //   firstPost.value = true;
+    //   saveServer();
+    // });
   },
   { deep: true }
 );
@@ -68,23 +76,65 @@ onMounted(async () => {
   const url = location.search;
   const urlParams = new URLSearchParams(url);
 
-  ipptId.value = urlParams.get("id");
-  const firstUrl = urlParams.get("url");
+  const lang = urlParams.get("lang");
+  // ipptId.value = urlParams.get("id");
+  // const firstUrl = urlParams.get("url");
 
-  const res = await api.getPPTinfo({ id: ipptId.value });
-  let { ppt_url, ppt_name } = res.info;
-  const obj = JSON.parse(ppt_url);
-  slidesStore.setTitle(ppt_name);
-  importPPTXFile(obj.url || firstUrl);
+  // const res = await api.getPPTinfo({ id: ipptId.value });
+  // let { ppt_url, ppt_name } = res.info;
+  // const obj = JSON.parse(ppt_url);
+  // slidesStore.setTitle(ppt_name);
+  // importPPTXFile(obj.url || firstUrl);
 
-  await deleteDiscardedDB();
-  snapshotStore.initSnapshotDatabase();
+  // await deleteDiscardedDB();
+  // snapshotStore.initSnapshotDatabase();
 
-  timer.value = setInterval(() => {
-    if (firstPost.value) {
-      saveServer();
-    }
-  }, 10000);
+  // timer.value = setInterval(() => {
+  //   if (firstPost.value) {
+  //     saveServer();
+  //   }
+  // }, 10000);
+
+  slidesStore.setSlides([
+    {
+      id: "h5sB6aRGVb",
+      elements: [
+        {
+          type: "shape",
+          id: "l6VJAjABe1",
+          width: 169.31212598425196,
+          height: 169.31212598425196,
+          left: 632.380997375328,
+          top: 214.1270341207349,
+          viewBox: [126.98409448818897, 126.98409448818897],
+          path: " M31.74606299212598,0 L95.23811023622046,0 L126.98409448818897,126.98409448818897 L0,126.98409448818897z",
+          fill: "#5b9bd5",
+          fixedRatio: false,
+          rotate: 0,
+          outline: {
+            color: "#00000000",
+            width: 1,
+            style: "solid",
+          },
+          text: {
+            content: "",
+            defaultFontName: "",
+            defaultColor: "#333",
+            align: "top",
+          },
+          flipH: false,
+          flipV: false,
+          special: true,
+          opacity: 0.4,
+        },
+      ],
+      background: {
+        type: "solid",
+        color: "#FFFFFF",
+      },
+      remark: "",
+    },
+  ]);
 });
 
 onUnmounted(() => {

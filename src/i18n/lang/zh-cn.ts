@@ -1,0 +1,25 @@
+export default {
+  ppt: {
+    wait: "数据初始化中，请稍等...",
+    Addslide: "添加幻灯片",
+    inputSectionName: "输入节名称",
+    untitledSection: "无标题节",
+    defaultSection: "默认节",
+    slideCount: "幻灯片 {current} / {total}",
+    deleteSection: "删除节",
+    deleteSectionAndSlides: "删除节和幻灯片",
+    deleteAllSections: "删除所有节",
+    renameSection: "重命名节",
+    paste: "粘贴",
+    selectAll: "全选",
+    newPage: "新建页面",
+    slideshow: "幻灯片放映",
+    cut: "剪切",
+    copy: "复制",
+    copyPage: "复制页面",
+    deletePage: "删除页面",
+    addSection: "增加节",
+    playFromCurrent: "从当前放映",
+    insertTemplate: "插入模板"
+  },
+};

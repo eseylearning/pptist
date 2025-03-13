@@ -1,0 +1,25 @@
+export default {
+  ppt: {
+    wait: "waiting for data initialization...",
+    Addslide: "Add a slide",
+    inputSectionName: "Enter section name",
+    untitledSection: "Untitled Section",
+    defaultSection: "Default Section",
+    slideCount: "Slide {current} / {total}",
+    deleteSection: "Delete Section",
+    deleteSectionAndSlides: "Delete Section and Slides",
+    deleteAllSections: "Delete All Sections",
+    renameSection: "Rename Section",
+    paste: "Paste",
+    selectAll: "Select All",
+    newPage: "New Page",
+    slideshow: "Slideshow",
+    cut: "Cut",
+    copy: "Copy",
+    copyPage: "Copy Page",
+    deletePage: "Delete Page",
+    addSection: "Add Section",
+    playFromCurrent: "Play from Current",
+    insertTemplate: "Insert Template"
+  },
+};

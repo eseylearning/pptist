@@ -1,7 +1,6 @@
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { type Shape, type Element, type ChartItem } from "pptxtojson";
-// @ts-ignore
 import { parse } from "./ppt/pptxtojson.js";
 import { nanoid } from "nanoid";
 import { useSlidesStore } from "@/store";
