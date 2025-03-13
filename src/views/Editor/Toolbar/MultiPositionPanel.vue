@@ -1,25 +1,25 @@
 <template>
   <div class="multi-position-panel">
     <ButtonGroup class="row">
-      <Button style="flex: 1;" v-tooltip="'左对齐'" @click="alignElement(ElementAlignCommands.LEFT)"><IconAlignLeft /></Button>
-      <Button style="flex: 1;" v-tooltip="'水平居中'" @click="alignElement(ElementAlignCommands.HORIZONTAL)"><IconAlignHorizontally /></Button>
-      <Button style="flex: 1;" v-tooltip="'右对齐'" @click="alignElement(ElementAlignCommands.RIGHT)"><IconAlignRight /></Button>
+      <Button style="flex: 1;" :v-tooltip="t('ppt.alignLeft')" @click="alignElement(ElementAlignCommands.LEFT)"><IconAlignLeft /></Button>
+      <Button style="flex: 1;" :v-tooltip="t('ppt.alignHorizontalCenter')" @click="alignElement(ElementAlignCommands.HORIZONTAL)"><IconAlignHorizontally /></Button>
+      <Button style="flex: 1;" :v-tooltip="t('ppt.alignRight')" @click="alignElement(ElementAlignCommands.RIGHT)"><IconAlignRight /></Button>
     </ButtonGroup>
     <ButtonGroup class="row">
-      <Button style="flex: 1;" v-tooltip="'上对齐'" @click="alignElement(ElementAlignCommands.TOP)"><IconAlignTop /></Button>
-      <Button style="flex: 1;" v-tooltip="'垂直居中'" @click="alignElement(ElementAlignCommands.VERTICAL)"><IconAlignVertically /></Button>
-      <Button style="flex: 1;" v-tooltip="'下对齐'" @click="alignElement(ElementAlignCommands.BOTTOM)"><IconAlignBottom /></Button>
+      <Button style="flex: 1;" :v-tooltip="t('ppt.alignTop')" @click="alignElement(ElementAlignCommands.TOP)"><IconAlignTop /></Button>
+      <Button style="flex: 1;" :v-tooltip="t('ppt.alignVerticalCenter')" @click="alignElement(ElementAlignCommands.VERTICAL)"><IconAlignVertically /></Button>
+      <Button style="flex: 1;" :v-tooltip="t('ppt.alignBottom')" @click="alignElement(ElementAlignCommands.BOTTOM)"><IconAlignBottom /></Button>
     </ButtonGroup>
     <ButtonGroup class="row" v-if="displayItemCount > 2">
-      <Button style="flex: 1;" @click="uniformHorizontalDisplay()">水平均匀分布</Button>
-      <Button style="flex: 1;" @click="uniformVerticalDisplay()">垂直均匀分布</Button>
+      <Button style="flex: 1;" @click="uniformHorizontalDisplay()">{{ t('ppt.uniformHorizontalDistribution') }}</Button>
+      <Button style="flex: 1;" @click="uniformVerticalDisplay()">{{ t('ppt.uniformVerticalDistribution') }}</Button>
     </ButtonGroup>
 
     <Divider />
 
     <ButtonGroup class="row">
-      <Button :disabled="!canCombine" @click="combineElements()" style="flex: 1;"><IconGroup style="margin-right: 3px;" />组合</Button>
-      <Button :disabled="canCombine" @click="uncombineElements()" style="flex: 1;"><IconUngroup style="margin-right: 3px;" />取消组合</Button>
+      <Button :disabled="!canCombine" @click="combineElements()" style="flex: 1;"><IconGroup style="margin-right: 3px;" /> {{ t('ppt.group') }}</Button>
+      <Button :disabled="canCombine" @click="uncombineElements()" style="flex: 1;"><IconUngroup style="margin-right: 3px;" /> {{ t('ppt.ungroup') }}</Button>
     </ButtonGroup>
   </div>
 </template>
@@ -33,6 +33,8 @@ import useUniformDisplayElement from '@/hooks/useUniformDisplayElement'
 import Divider from '@/components/Divider.vue'
 import Button from '@/components/Button.vue'
 import ButtonGroup from '@/components/ButtonGroup.vue'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 const { canCombine, combineElements, uncombineElements } = useCombineElement()
 const { alignActiveElement } = useAlignActiveElement()

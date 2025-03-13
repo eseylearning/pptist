@@ -1,15 +1,15 @@
 <template>
   <div class="slide-design-panel">
-    <div class="title">背景填充</div>
+    <div class="title">{{ t('ppt.backgroundFill') }}</div>
     <div class="row">
       <Select 
         style="flex: 1;" 
         :value="background.type" 
         @update:value="value => updateBackgroundType(value as 'gradient' | 'image' | 'solid')"
         :options="[
-          { label: '纯色填充', value: 'solid' },
-          { label: '图片填充', value: 'image' },
-          { label: '渐变填充', value: 'gradient' },
+          { label: t('ppt.solidFill'), value: 'solid' },
+          { label: t('ppt.imageFill'), value: 'image' },
+          { label: t('ppt.gradientFill'), value: 'gradient' },
         ]"
       />
       <div style="width: 10px;"></div>
@@ -30,9 +30,9 @@
         @update:value="value => updateImageBackground({ size: value as SlideBackgroundImageSize })"
         v-else-if="background.type === 'image'"
         :options="[
-          { label: '缩放', value: 'contain' },
-          { label: '拼贴', value: 'repeat' },
-          { label: '缩放铺满', value: 'cover' },
+          { label: t('ppt.contain'), value: 'contain' },
+          { label: t('ppt.repeat'), value: 'repeat' },
+          { label: t('ppt.cover'), value: 'cover' },
         ]"
       />
 
@@ -42,8 +42,8 @@
         @update:value="value => updateGradientBackground({ type: value as GradientType })"
         v-else
         :options="[
-          { label: '线性渐变', value: 'linear' },
-          { label: '径向渐变', value: 'radial' },
+          { label: t('ppt.linearGradient'), value: 'linear' },
+          { label: t('ppt.radialGradient'), value: 'radial' },
         ]"
       />
     </div>
@@ -68,7 +68,7 @@
         />
       </div>
       <div class="row">
-        <div style="width: 40%;">当前色块：</div>
+        <div style="width: 40%;">{{ t('ppt.currentColorBlock') }}：</div>
         <Popover trigger="click" style="width: 60%;">
           <template #content>
             <ColorPicker
@@ -80,7 +80,7 @@
         </Popover>
       </div>
       <div class="row" v-if="background.gradient?.type === 'linear'">
-        <div style="width: 40%;">渐变角度：</div>
+        <div style="width: 40%;">{{ t('ppt.gradientAngle') }}：</div>
         <Slider
           :min="0"
           :max="360"
@@ -93,23 +93,23 @@
     </div>
 
     <div class="row">
-      <Button style="flex: 1;" @click="applyBackgroundAllSlide()">应用背景到全部</Button>
+      <Button style="flex: 1;" @click="applyBackgroundAllSlide()">{{ t('ppt.applyBackgroundToAll') }}</Button>
     </div>
 
     <Divider />
 
     <div class="row">
-      <div style="width: 40%;">画布尺寸：</div>
+      <div style="width: 40%;">{{ t('ppt.canvasSize') }}：</div>
       <Select 
         style="width: 60%;" 
         :value="viewportRatio" 
         @update:value="value => updateViewportRatio(value as number)"
         :options="[
-          { label: '宽屏 16 : 9', value: 0.5625 },
-          { label: '宽屏 16 : 10', value: 0.625 },
-          { label: '标准 4 : 3', value: 0.75 },
-          { label: '纸张 A3 / A4', value: 0.70710678 },
-          { label: '竖向 A3 / A4', value: 1.41421356 },
+          { label: t('ppt.widescreen169'), value: 0.5625 },
+          { label: t('ppt.widescreen1610'), value: 0.625 },
+          { label: t('ppt.standard43'), value: 0.75 },
+          { label: t('ppt.paperA3A4'), value: 0.70710678 },
+          { label: t('ppt.verticalA3A4'), value: 1.41421356 },
         ]"
       />
     </div>
@@ -117,26 +117,26 @@
     <Divider />
 
     <div class="title">
-      <span>全局主题</span>
+      <span>{{ t('ppt.globalTheme') }}</span>
       <span class="more" @click="moreThemeConfigsVisible = !moreThemeConfigsVisible">
-        <span class="text">更多</span>
+        <span class="text">{{ t('ppt.more') }}</span>
         <IconDown v-if="moreThemeConfigsVisible" />
         <IconRight v-else />
       </span>
     </div>
     <div class="row">
-      <div style="width: 40%;">字体：</div>
+      <div style="width: 40%;">{{ t('ppt.font') }}：</div>
       <Select
         style="width: 60%;"
         :value="theme.fontName"
         search
-        searchLabel="搜索字体"
+        :searchLabel="t('ppt.searchFont')"
         @update:value="value => updateTheme({ fontName: value as string })"
         :options="FONTS"
       />
     </div>
     <div class="row">
-      <div style="width: 40%;">字体颜色：</div>
+      <div style="width: 40%;">{{ t('ppt.fontColor') }}：</div>
       <Popover trigger="click" style="width: 60%;">
         <template #content>
           <ColorPicker
@@ -148,7 +148,7 @@
       </Popover>
     </div>
     <div class="row">
-      <div style="width: 40%;">背景颜色：</div>
+      <div style="width: 40%;">{{ t('ppt.backgroundColor') }}</div>
       <Popover trigger="click" style="width: 60%;">
         <template #content>
           <ColorPicker
@@ -160,7 +160,7 @@
       </Popover>
     </div>
     <div class="row">
-      <div style="width: 40%;">主题色：</div>
+      <div style="width: 40%;">{{ t('ppt.themeColor') }}</div>
       <Popover trigger="click" style="width: 60%;">
         <template #content>
           <ColorPicker
@@ -174,7 +174,7 @@
     
     <template v-if="moreThemeConfigsVisible">
       <div class="row">
-        <div style="width: 40%;">边框样式：</div>
+        <div style="width: 40%;">{{ t('ppt.borderStyle') }}</div>
         <SelectCustom style="width: 60%;">
           <template #options>
             <div class="option" v-for="item in lineStyleOptions" :key="item" @click="updateTheme({ outline: { ...theme.outline, style: item } })">
@@ -187,7 +187,7 @@
         </SelectCustom>
       </div>
       <div class="row">
-        <div style="width: 40%;">边框颜色：</div>
+        <div style="width: 40%;">{{ t('ppt.borderColor') }}</div>
         <Popover trigger="click" style="width: 60%;">
           <template #content>
             <ColorPicker
@@ -199,7 +199,7 @@
         </Popover>
       </div>
       <div class="row">
-        <div style="width: 40%;">边框粗细：</div>
+        <div style="width: 40%;">{{ t('ppt.borderWidth') }}</div>
         <NumberInput 
           :value="theme.outline.width || 0" 
           @update:value="value => updateTheme({ outline: { ...theme.outline, width: value } })" 
@@ -207,7 +207,7 @@
         />
       </div>
       <div class="row" style="height: 30px;">
-        <div style="width: 40%;">水平阴影：</div>
+        <div style="width: 40%;">{{ t('ppt.horizontalShadow') }}</div>
         <Slider 
           style="width: 60%;"
           :min="-10" 
@@ -218,7 +218,7 @@
         />
       </div>
       <div class="row" style="height: 30px;">
-        <div style="width: 40%;">垂直阴影：</div>
+        <div style="width: 40%;">{{ t('ppt.verticalShadow') }}</div>
         <Slider
           style="width: 60%;"
           :min="-10"
@@ -229,7 +229,7 @@
         />
       </div>
       <div class="row" style="height: 30px;">
-        <div style="width: 40%;">模糊距离：</div>
+        <div style="width: 40%;">{{ t('ppt.blurDistance') }}</div>
         <Slider
           style="width: 60%;"
           :min="1"
@@ -240,7 +240,7 @@
         />
       </div>
       <div class="row">
-        <div style="width: 40%;">阴影颜色：</div>
+        <div style="width: 40%;">{{ t('ppt.shadowColor') }}</div>
         <Popover trigger="click" style="width: 60%;">
           <template #content>
             <ColorPicker
@@ -254,16 +254,16 @@
     </template>
 
     <div class="row">
-      <Button style="flex: 1;" @click="applyThemeToAllSlides(moreThemeConfigsVisible)">应用主题到全部</Button>
+      <Button style="flex: 1;" @click="applyThemeToAllSlides(moreThemeConfigsVisible)">{{ t('ppt.applyThemeToAll') }}</Button>
     </div>
 
     <div class="row">
-      <Button style="flex: 1;" @click="themeStylesExtractVisible = true">从幻灯片提取主题</Button>
+      <Button style="flex: 1;" @click="themeStylesExtractVisible = true">{{ t('ppt.extractThemeFromSlide') }}</Button>
     </div>
 
     <Divider />
 
-    <div class="title">预置主题</div>
+    <div class="title">{{ t('ppt.presetThemes') }}</div>
     <div class="theme-list">
       <div 
         class="theme-item" 
@@ -275,14 +275,14 @@
         }"
       >
         <div class="theme-item-content">
-          <div class="text" :style="{ color: item.fontColor }">文字 Aa</div>
+          <div class="text" :style="{ color: item.fontColor }">{{ t('ppt.textSample') }}</div>
           <div class="colors">
             <div class="color-block" v-for="(color, index) in item.colors" :key="index" :style="{ backgroundColor: color}"></div>
           </div>
 
           <div class="btns">
-            <Button type="primary" size="small" @click="applyPresetThemeToSingleSlide(item)">应用</Button>
-            <Button type="primary" size="small" style="margin-top: 3px;" @click="applyPresetThemeToAllSlides(item)">应用全局</Button>
+            <Button type="primary" size="small" @click="applyPresetThemeToSingleSlide(item)">{{ t('ppt.apply') }}</Button>
+            <Button type="primary" size="small" style="margin-top: 3px;" @click="applyPresetThemeToAllSlides(item)">{{ t('ppt.applyGlobally') }}</Button>
           </div>
         </div>
       </div>
@@ -317,6 +317,7 @@ import { FONTS } from '@/configs/font'
 import useHistorySnapshot from '@/hooks/useHistorySnapshot'
 import useSlideTheme from '@/hooks/useSlideTheme'
 import { getImageDataURL } from '@/utils/image'
+import { useI18n } from 'vue-i18n'
 
 import ThemeStylesExtract from './ThemeStylesExtract.vue'
 import SVGLine from './common/SVGLine.vue'
@@ -335,6 +336,7 @@ import GradientBar from '@/components/GradientBar.vue'
 
 const slidesStore = useSlidesStore()
 const { slides, currentSlide, slideIndex, viewportRatio, theme } = storeToRefs(slidesStore)
+const { t } = useI18n()
 
 const moreThemeConfigsVisible = ref(false)
 const themeStylesExtractVisible = ref(false)

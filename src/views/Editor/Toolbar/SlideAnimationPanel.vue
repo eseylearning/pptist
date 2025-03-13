@@ -9,10 +9,10 @@
         @click="updateTurningMode(item.value)"
       >
         <div :class="['animation-block', item.value]"></div>
-        <div class="animation-text">{{item.label}}</div>
+        <div class="animation-text">{{ item.label }}</div>
       </div>
     </div>
-    <Button style="width: 100%;" @click="applyAllSlide()">应用到全部</Button>
+    <Button style="width: 100%;" @click="applyAllSlide()">{{ t('ppt.applyToAll') }}</Button>
   </div>
 </template>
 
@@ -25,6 +25,8 @@ import { SLIDE_ANIMATIONS } from '@/configs/animation'
 import useHistorySnapshot from '@/hooks/useHistorySnapshot'
 import message from '@/utils/message'
 import Button from '@/components/Button.vue'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 const slidesStore = useSlidesStore()
 const { slides, currentSlide } = storeToRefs(slidesStore)
@@ -51,7 +53,7 @@ const applyAllSlide = () => {
     }
   })
   slidesStore.setSlides(newSlides)
-  message.success('已应用到全部')
+  message.success(t('ppt.appliedToAll'))
   addHistorySnapshot()
 }
 </script>
