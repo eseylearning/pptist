@@ -64,6 +64,17 @@ export default {
     select: "Select",
     showAll: "Show All",
     hideAll: "Hide All",
-    group: "Group"
+    group: "Group",
+    addAnimation: "Add Animation",
+    selectElementToAddAnimation: "Select an element on the canvas to add animation",
+    preview: "Preview",
+    duration: "Duration",
+    triggerMethod: "Trigger Method",
+    triggerClick: "Click",
+    triggerMeantime: "With Previous",
+    triggerAuto: "After Previous",
+    changeAnimation: "Change Animation",
+    stopPreview: "Stop Preview",
+    previewAll: "Preview All"
   },
 };

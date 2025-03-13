@@ -51,9 +51,9 @@ const url = location.search;
 const urlParams = new URLSearchParams(url);
 
 const lang = urlParams.get("lang");
-
+// @ts-ignore
 locale.value = lang;
-console.log(locale.value);
+
 watch(
   () => slides.value,
   (val, old) => {

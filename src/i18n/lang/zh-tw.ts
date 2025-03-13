@@ -63,6 +63,17 @@ export default {
     select: "選擇",
     showAll: "全部顯示",
     hideAll: "全部隱藏",
-    group: "組合"
+    group: "組合",
+    addAnimation: "添加動畫",
+    selectElementToAddAnimation: "選中畫布中的元素添加動畫",
+    preview: "預覽",
+    duration: "持續時長",
+    triggerMethod: "觸發方式",
+    triggerClick: "主動觸發",
+    triggerMeantime: "與上一動畫同時",
+    triggerAuto: "上一動畫之後",
+    changeAnimation: "更換動畫",
+    stopPreview: "停止預覽",
+    previewAll: "預覽全部"
   },
 };
