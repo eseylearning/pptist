@@ -41,14 +41,14 @@
       @mouseenter="rightToolsVisible = true"
     >
       <div class="content">
-        <div class="tool-btn page-number" @click="slideThumbnailModelVisible = true">幻灯片 {{slideIndex + 1}} / {{slides.length}}</div>
-        <IconWrite class="tool-btn" v-tooltip="'画笔工具'" @click="writingBoardToolVisible = true" />
-        <IconMagic class="tool-btn" v-tooltip="'激光笔'" :class="{ 'active': laserPen }" @click="laserPen = !laserPen" />
-        <IconStopwatchStart class="tool-btn" v-tooltip="'计时器'" :class="{ 'active': timerlVisible }" @click="timerlVisible = !timerlVisible" />
-        <IconListView class="tool-btn" v-tooltip="'演讲者视图'" @click="changeViewMode('presenter')" />
-        <IconOffScreenOne class="tool-btn" v-tooltip="'退出全屏'" v-if="fullscreenState" @click="manualExitFullscreen()" />
-        <IconFullScreenOne class="tool-btn" v-tooltip="'进入全屏'" v-else @click="enterFullscreen()" />
-        <IconPower class="tool-btn" v-tooltip="'结束放映'" @click="exitScreening()" />
+        <div class="tool-btn page-number" @click="slideThumbnailModelVisible = true">{{ t('ppt.slideCount', { current: slideIndex + 1, total: slides.length }) }}</div>
+        <IconWrite class="tool-btn" v-tooltip="t('ppt.pencilTool')" @click="writingBoardToolVisible = true" />
+        <IconMagic class="tool-btn" v-tooltip="t('ppt.laserPointer')" :class="{ 'active': laserPen }" @click="laserPen = !laserPen" />
+        <IconStopwatchStart class="tool-btn" v-tooltip="t('ppt.timer')" :class="{ 'active': timerlVisible }" @click="timerlVisible = !timerlVisible" />
+        <IconListView class="tool-btn" v-tooltip="t('ppt.normalView')" @click="changeViewMode('presenter')" />
+        <IconOffScreenOne class="tool-btn" v-tooltip="t('ppt.exitFullscreen')" v-if="fullscreenState" @click="manualExitFullscreen()" />
+        <IconFullScreenOne class="tool-btn" v-tooltip="t('ppt.fullscreen')" v-else @click="enterFullscreen()" />
+        <IconPower class="tool-btn" v-tooltip="t('ppt.endScreening')" @click="exitScreening()" />
       </div>
     </div>
   </div>
@@ -64,6 +64,7 @@ import useScreening from '@/hooks/useScreening'
 import useExecPlay from './hooks/useExecPlay'
 import useSlideSize from './hooks/useSlideSize'
 import useFullscreen from './hooks/useFullscreen'
+import { useI18n } from 'vue-i18n'
 
 import ScreenSlideList from './ScreenSlideList.vue'
 import SlideThumbnails from './SlideThumbnails.vue'
@@ -106,82 +107,84 @@ const timerlVisible = ref(false)
 const slideThumbnailModelVisible = ref(false)
 const laserPen = ref(false)
 
+const { t } = useI18n()
+
 const contextmenus = (): ContextmenuItem[] => {
   return [
     {
-      text: '上一页',
+      text: t('ppt.previousPage'),
       subText: '↑ ←',
       disable: slideIndex.value <= 0,
       handler: () => turnPrevSlide(),
     },
     {
-      text: '下一页',
+      text: t('ppt.nextPage'),
       subText: '↓ →',
       disable: slideIndex.value >= slides.value.length - 1,
       handler: () => turnNextSlide(),
     },
     {
-      text: '第一页',
+      text: t('ppt.firstPage'),
       disable: slideIndex.value === 0,
       handler: () => turnSlideToIndex(0),
     },
     {
-      text: '最后一页',
+      text: t('ppt.lastPage'),
       disable: slideIndex.value === slides.value.length - 1,
       handler: () => turnSlideToIndex(slides.value.length - 1),
     },
     { divider: true },
     {
-      text: autoPlayTimer.value ? '取消自动放映' : '自动放映',
+      text: autoPlayTimer.value ? t('ppt.cancelAutoPlay') : t('ppt.autoPlay'),
       handler: autoPlayTimer.value ? closeAutoPlay : autoPlay,
       children: [
         {
-          text: '2.5秒',
+          text: `2.5${t('ppt.seconds')}`,
           subText: autoPlayInterval.value === 2500 ? '√' : '',
           handler: () => setAutoPlayInterval(2500),
         },
         {
-          text: '5秒',
+          text: `5${t('ppt.seconds')}`,
           subText: autoPlayInterval.value === 5000 ? '√' : '',
           handler: () => setAutoPlayInterval(5000),
         },
         {
-          text: '7.5秒',
+          text: `7.5${t('ppt.seconds')}`,
           subText: autoPlayInterval.value === 7500 ? '√' : '',
           handler: () => setAutoPlayInterval(7500),
         },
         {
-          text: '10秒',
+          text: `10${t('ppt.seconds')}`,
           subText: autoPlayInterval.value === 10000 ? '√' : '',
           handler: () => setAutoPlayInterval(10000),
         },
       ],
     },
     {
-      text: '循环放映',
+      text: t('ppt.loopPlay'),
       subText: loopPlay.value ? '√' : '',
       handler: () => setLoopPlay(!loopPlay.value),
     },
     { divider: true },
     {
-      text: '显示工具栏',
+      text: t('ppt.showToolbar'),
       handler: () => rightToolsVisible.value = true,
     },
     {
-      text: '查看所有幻灯片',
+      text: t('ppt.viewAllSlides'),
       handler: () => slideThumbnailModelVisible.value = true,
     },
     {
-      text: '画笔工具',
+      text: t('ppt.pencilTool'),
       handler: () => writingBoardToolVisible.value = true,
     },
     {
-      text: '演讲者视图',
+      text: t('ppt.normalView'),
       handler: () => props.changeViewMode('presenter'),
     },
     { divider: true },
     {
-      text: '结束放映',
+      text: t('ppt.endScreening'),
       subText: 'ESC',
       handler: exitScreening,
     },

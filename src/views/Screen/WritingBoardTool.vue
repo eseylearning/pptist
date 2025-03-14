@@ -31,40 +31,40 @@
           <Popover trigger="manual" :value="sizePopoverType === 'pen'">
             <template #content>
               <div class="size">
-                <div class="label">墨迹粗细：</div>
+                <div class="label">{{ t('ppt.strokeThickness') }}：</div>
                 <Slider class="size-slider" :min="4" :max="10" :step="2" v-model:value="penSize" />
               </div>
             </template>
-            <div class="btn" :class="{ 'active': writingBoardModel === 'pen' }" v-tooltip="'画笔'" @click="changeModel('pen')">
+            <div class="btn" :class="{ 'active': writingBoardModel === 'pen' }" v-tooltip="t('ppt.pen')" @click="changeModel('pen')">
               <IconWrite class="icon" />
             </div>
           </Popover>
           <Popover trigger="manual" :value="sizePopoverType === 'mark'">
             <template #content>
               <div class="size">
-                <div class="label">墨迹粗细：</div>
+                <div class="label">{{ t('ppt.strokeThickness') }}：</div>
                 <Slider class="size-slider" :min="16" :max="40" :step="4" v-model:value="markSize" />
               </div>
             </template>
-            <div class="btn" :class="{ 'active': writingBoardModel === 'mark' }" v-tooltip="'荧光笔'" @click="changeModel('mark')">
+            <div class="btn" :class="{ 'active': writingBoardModel === 'mark' }" v-tooltip="t('ppt.highlighter')" @click="changeModel('mark')">
               <IconHighLight class="icon" />
             </div>
           </Popover>
           <Popover trigger="manual" :value="sizePopoverType === 'eraser'">
             <template #content>
               <div class="size">
-                <div class="label">橡皮大小：</div>
+                <div class="label">{{ t('ppt.eraserThickness') }}：</div>
                 <Slider class="size-slider" :min="20" :max="200" :step="20" v-model:value="rubberSize" />
               </div>
             </template>
-            <div class="btn" :class="{ 'active': writingBoardModel === 'eraser' }" v-tooltip="'橡皮擦'" @click="changeModel('eraser')">
+            <div class="btn" :class="{ 'active': writingBoardModel === 'eraser' }" v-tooltip="t('ppt.eraser')" @click="changeModel('eraser')">
               <IconErase class="icon" />
             </div>
           </Popover>
-          <div class="btn" v-tooltip="'清除墨迹'" @click="clearCanvas()">
+          <div class="btn" v-tooltip="t('ppt.clearStrokes')" @click="clearCanvas()">
             <IconClear class="icon" />
           </div>
-          <div class="btn" :class="{ 'active': blackboard }" v-tooltip="'黑板'" @click="blackboard = !blackboard">
+          <div class="btn" :class="{ 'active': blackboard }" v-tooltip="t('ppt.blackboard')" @click="blackboard = !blackboard">
             <IconFill class="icon" />
           </div>
           <div class="colors">
@@ -78,7 +78,7 @@
             ></div>
           </div>
         </div>
-        <div class="btn" v-tooltip="'关闭画笔'" @click="closeWritingBoard()">
+        <div class="btn" v-tooltip="t('ppt.closePen')" @click="closeWritingBoard()">
           <IconClose class="icon" />
         </div>
       </div>
@@ -91,11 +91,14 @@ import { ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useSlidesStore } from '@/store'
 import { db } from '@/utils/database'
+import { useI18n } from 'vue-i18n'
 
 import WritingBoard from '@/components/WritingBoard.vue'
 import MoveablePanel from '@/components/MoveablePanel.vue'
 import Slider from '@/components/Slider.vue'
 import Popover from '@/components/Popover.vue'
+
+const { t } = useI18n()
 
 const writingBoardColors = ['#000000', '#ffffff', '#1e497b', '#4e81bb', '#e2534d', '#9aba60', '#8165a0', '#47acc5', '#f9974c', '#ffff3a']
 

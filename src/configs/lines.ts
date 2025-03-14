@@ -1,5 +1,7 @@
 import type { LinePoint, LineStyleType } from '@/types/slides'
+import i18n from '@/i18n'
 
+const { t } = i18n.global
 
 export interface LinePoolItem {
   path: string
@@ -18,7 +20,7 @@ interface PresetLine {
 
 export const LINE_LIST: PresetLine[] = [
   {
-    type: '直线',
+    type: t('ppt.straightLine'),
     children: [
       { path: 'M 0 0 L 20 20', style: 'solid', points: ['', ''] },
       { path: 'M 0 0 L 20 20', style: 'dashed', points: ['', ''] },
@@ -28,7 +30,7 @@ export const LINE_LIST: PresetLine[] = [
     ],
   },
   {
-    type: '折线、曲线',
+    type: t('ppt.brokenLine'),
     children: [
       { path: 'M 0 0 L 0 20 L 20 20', style: 'solid', points: ['', 'arrow'], isBroken: true },
       { path: 'M 0 0 L 10 0 L 10 20 L 20 20', style: 'solid', points: ['', 'arrow'], isBroken2: true },

@@ -2,28 +2,28 @@
   <div class="presenter-view">
     <div class="toolbar">
       <div class="tool-btn" @click="changeViewMode('base')">
-        <IconListView class="tool-icon" /><span>普通视图</span>
+        <IconListView class="tool-icon" /><span>{{ t('ppt.normalView') }}</span>
       </div>
       <div
         class="tool-btn"
         :class="{ active: writingBoardToolVisible }"
         @click="writingBoardToolVisible = !writingBoardToolVisible"
       >
-        <IconWrite class="tool-icon" /><span>画笔</span>
+        <IconWrite class="tool-icon" /><span>{{ t('ppt.pencil') }}</span>
       </div>
       <div
         class="tool-btn"
         :class="{ active: laserPen }"
         @click="laserPen = !laserPen"
       >
-        <IconMagic class="tool-icon" /><span>激光笔</span>
+        <IconMagic class="tool-icon" /><span>{{ t('ppt.laserPointer') }}</span>
       </div>
       <div
         class="tool-btn"
         :class="{ active: timerlVisible }"
         @click="timerlVisible = !timerlVisible"
       >
-        <IconStopwatchStart class="tool-icon" /><span>计时器</span>
+        <IconStopwatchStart class="tool-icon" /><span>{{ t('ppt.timer') }}</span>
       </div>
       <div
         class="tool-btn"
@@ -33,11 +33,11 @@
       >
         <IconOffScreenOne class="tool-icon" v-if="fullscreenState" />
         <IconOffScreenOne class="tool-icon" v-else />
-        <span>{{ fullscreenState ? "退出全屏" : "全屏" }}</span>
+        <span>{{ fullscreenState ? t('ppt.exitFullscreen') : t('ppt.fullscreen') }}</span>
       </div>
       <Divider class="divider" />
       <div class="tool-btn" @click="exitScreening()">
-        <IconPower class="tool-icon" /><span>结束放映</span>
+        <IconPower class="tool-icon" /><span>{{ t('ppt.endScreening') }}</span>
       </div>
     </div>
 
@@ -96,14 +96,14 @@
 
     <div class="remark">
       <div class="header">
-        <span>演讲者备注</span>
+        <span>{{ t('ppt.speakerNotes') }}</span>
         <span>P {{ slideIndex + 1 }} / {{ slides.length }}</span>
       </div>
       <div
         class="remark-content ProseMirror-static"
         :class="{ empty: !currentSlideRemark }"
         :style="{ fontSize: remarkFontSize + 'px' }"
-        v-html="currentSlideRemark || '无备注'"
+        v-html="currentSlideRemark || t('ppt.noNotes')"
       ></div>
       <div class="remark-scale">
         <div
@@ -135,6 +135,7 @@ import useLoadSlides from "@/hooks/useLoadSlides";
 import useExecPlay from "./hooks/useExecPlay";
 import useSlideSize from "./hooks/useSlideSize";
 import useFullscreen from "./hooks/useFullscreen";
+import { useI18n } from 'vue-i18n';
 
 import ThumbnailSlide from "@/views/components/ThumbnailSlide/index.vue";
 import ScreenSlideList from "./ScreenSlideList.vue";
@@ -178,6 +179,8 @@ const currentSlideRemark = computed(() => {
   return parseText2Paragraphs(currentSlide.value.remark);
 });
 
+const { t } = useI18n();
+
 const handleMousewheelThumbnails = (e: WheelEvent) => {
   if (!thumbnailsRef.value) return;
   thumbnailsRef.value.scrollBy(e.deltaY, 0);
@@ -208,40 +211,40 @@ watch(slideIndex, () => {
 const contextmenus = (): ContextmenuItem[] => {
   return [
     {
-      text: "上一页",
-      subText: "↑ ←",
+      text: t('ppt.previousPage'),
+      subText: '↑ ←',
       disable: slideIndex.value <= 0,
       handler: () => turnPrevSlide(),
     },
     {
-      text: "下一页",
-      subText: "↓ →",
+      text: t('ppt.nextPage'),
+      subText: '↓ →',
       disable: slideIndex.value >= slides.value.length - 1,
       handler: () => turnNextSlide(),
     },
     {
-      text: "第一页",
+      text: t('ppt.firstPage'),
       disable: slideIndex.value === 0,
       handler: () => turnSlideToIndex(0),
     },
     {
-      text: "最后一页",
+      text: t('ppt.lastPage'),
       disable: slideIndex.value === slides.value.length - 1,
       handler: () => turnSlideToIndex(slides.value.length - 1),
     },
     { divider: true },
     {
-      text: "画笔工具",
+      text: t('ppt.pencilTool'),
       handler: () => (writingBoardToolVisible.value = true),
     },
     {
-      text: "普通视图",
-      handler: () => props.changeViewMode("base"),
+      text: t('ppt.normalView'),
+      handler: () => props.changeViewMode('base'),
     },
     { divider: true },
     {
-      text: "结束放映",
-      subText: "ESC",
+      text: t('ppt.endScreening'),
+      subText: 'ESC',
       handler: exitScreening,
     },
   ];

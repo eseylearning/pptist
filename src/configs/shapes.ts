@@ -3,6 +3,9 @@
 // 非专业设计人士可以用该应用绘制基本形状：https://github.com/pipipi-pikachu/svgPathCreator
 
 import { ShapePathFormulasKeys } from '@/types/slides'
+import i18n from '@/i18n'
+
+const { t } = i18n.global
 
 export interface ShapePoolItem {
   viewBox: [number, number]
@@ -247,7 +250,7 @@ export const SHAPE_PATH_FORMULAS: {
 
 export const SHAPE_LIST: ShapeListItem[] = [
   {
-    type: '矩形',
+    type: t('ppt.rectangle'),
     children: [
       {
         viewBox: [200, 200],
@@ -306,7 +309,7 @@ export const SHAPE_LIST: ShapeListItem[] = [
   },
 
   {
-    type: '常用形状',
+    type: t('ppt.commonShapes'),
     children: [
       {
         viewBox: [200, 200],
@@ -637,7 +640,7 @@ export const SHAPE_LIST: ShapeListItem[] = [
   },
   
   {
-    type: '箭头',
+    type: t('ppt.arrows'),
     children: [
       {
         viewBox: [200, 200],
@@ -755,7 +758,7 @@ export const SHAPE_LIST: ShapeListItem[] = [
   },
 
   {
-    type: '其他形状',
+    type: t('ppt.otherShapes'),
     children: [
       {
         viewBox: [1024, 1024],
@@ -941,7 +944,7 @@ export const SHAPE_LIST: ShapeListItem[] = [
   },
 
   {
-    type: '线性',
+    type: t('ppt.linear'),
     children: [
       {
         viewBox: [1024, 1024],

@@ -7,18 +7,18 @@
     />
 
     <template v-if="type === 'video'">
-      <Input v-model:value="videoSrc" placeholder="请输入视频地址，e.g. https://xxx.mp4"></Input>
+      <Input v-model:value="videoSrc" :placeholder="t('ppt.enterVideoUrl')"></Input>
       <div class="btns">
-        <Button @click="emit('close')" style="margin-right: 10px;">取消</Button>
-        <Button type="primary" @click="insertVideo()">确认</Button>
+        <Button @click="emit('close')" style="margin-right: 10px;">{{ t('ppt.cancel') }}</Button>
+        <Button type="primary" @click="insertVideo()">{{ t('ppt.confirm') }}</Button>
       </div>
     </template>
 
     <template v-if="type === 'audio'">
-      <Input v-model:value="audioSrc" placeholder="请输入音频地址，e.g. https://xxx.mp3"></Input>
+      <Input v-model:value="audioSrc" :placeholder="t('ppt.enterAudioUrl')"></Input>
       <div class="btns">
-        <Button @click="emit('close')" style="margin-right: 10px;">取消</Button>
-        <Button type="primary" @click="insertAudio()">确认</Button>
+        <Button @click="emit('close')" style="margin-right: 10px;">{{ t('ppt.cancel') }}</Button>
+        <Button type="primary" @click="insertAudio()">{{ t('ppt.confirm') }}</Button>
       </div>
     </template>
   </div>
@@ -30,6 +30,9 @@ import message from '@/utils/message'
 import Tabs from '@/components/Tabs.vue'
 import Input from '@/components/Input.vue'
 import Button from '@/components/Button.vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 type TypeKey = 'video' | 'audio'
 interface TabItem {
@@ -49,17 +52,17 @@ const videoSrc = ref('https://mazwai.com/videvo_files/video/free/2019-01/small_w
 const audioSrc = ref('https://freesound.org/data/previews/614/614107_11861866-lq.mp3')
 
 const tabs: TabItem[] = [
-  { key: 'video', label: '视频' },
-  { key: 'audio', label: '音频' },
+  { key: 'video', label: t('ppt.video') },
+  { key: 'audio', label: t('ppt.audio') },
 ]
 
 const insertVideo = () => {
-  if (!videoSrc.value) return message.error('请先输入正确的视频地址')
+  if (!videoSrc.value) return message.error(t('ppt.pleaseEnterValidVideoUrl'))
   emit('insertVideo', videoSrc.value)
 }
 
 const insertAudio = () => {
-  if (!audioSrc.value) return message.error('请先输入正确的音频地址')
+  if (!audioSrc.value) return message.error(t('ppt.pleaseEnterValidAudioUrl'))
   emit('insertAudio', audioSrc.value)
 }
 </script>

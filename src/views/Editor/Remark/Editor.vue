@@ -38,10 +38,13 @@ import { initProsemirrorEditor, createDocument } from '@/utils/prosemirror'
 import { addMark, autoSelectAll, getTextAttrs, type TextAttrs } from '@/utils/prosemirror/utils'
 import { toggleList } from '@/utils/prosemirror/commands/toggleList'
 import tippy, { type Instance } from 'tippy.js'
+import { useI18n } from 'vue-i18n'
 
 import ColorPicker from '@/components/ColorPicker/index.vue'
 import Popover from '@/components/Popover.vue'
 import { toggleMark } from 'prosemirror-commands'
+
+const { t } = useI18n()
 
 const props = defineProps<{
   value: string
@@ -177,7 +180,7 @@ onMounted(() => {
       input: handleInput,
     },
   }, {
-    placeholder: '点击输入演讲者备注',
+    placeholder: t('ppt.inputNoteContent'),
   })
 
   menuInstance.value = tippy(editorViewRef.value!, {
