@@ -8,11 +8,11 @@
     <ElementFlip />
 
     <ButtonGroup class="row" passive>
-      <Button first style="width: calc(100% / 6 * 5);" @click="clipImage()"><IconTailoring class="btn-icon" /> 裁剪图片</Button>
+      <Button first style="width: calc(100% / 6 * 5);" @click="clipImage()"><IconTailoring class="btn-icon" /> {{ t('ppt.clipImage') }}</Button>
       <Popover trigger="click" v-model:value="clipPanelVisible" style="width: calc(100% / 6);">
         <template #content>
           <div class="clip">
-            <div class="title">按形状：</div>
+            <div class="title">{{ t('ppt.byShape') }}：</div>
             <div class="shape-clip">
               <div 
                 class="shape-clip-item" 
@@ -25,7 +25,7 @@
             </div>
 
             <template v-for="typeItem in ratioClipOptions" :key="typeItem.label">
-              <div class="title" v-if="typeItem.label">按{{typeItem.label}}：</div>
+              <div class="title" v-if="typeItem.label">{{ t('ppt.byRatio') }}{{typeItem.label}}：</div>
               <ButtonGroup class="row">
                 <Button 
                   style="flex: 1;"
@@ -42,7 +42,7 @@
     </ButtonGroup>
     
     <div class="row">
-      <div style="width: 40%;">圆角半径：</div>
+      <div style="width: 40%;">{{ t('ppt.borderRadius') }}：</div>
       <NumberInput 
         :value="handleImageElement.radius || 0" 
         @update:value="value => updateImage({ radius: value })" 
@@ -61,10 +61,10 @@
     <Divider />
     
     <FileInput @change="files => replaceImage(files)">
-      <Button class="full-width-btn"><IconTransform class="btn-icon" /> 替换图片</Button>
+      <Button class="full-width-btn"><IconTransform class="btn-icon" /> {{ t('ppt.replaceImage') }}</Button>
     </FileInput>
-    <Button class="full-width-btn" @click="resetImage()"><IconUndo class="btn-icon" /> 重置样式</Button>
-    <Button class="full-width-btn" @click="setBackgroundImage()"><IconTheme class="btn-icon" /> 设为背景</Button>
+    <Button class="full-width-btn" @click="resetImage()"><IconUndo class="btn-icon" /> {{ t('ppt.resetStyle') }}</Button>
+    <Button class="full-width-btn" @click="setBackgroundImage()"><IconTheme class="btn-icon" /> {{ t('ppt.setAsBackground') }}</Button>
   </div>
 </template>
 
@@ -76,6 +76,7 @@ import type { PPTImageElement, SlideBackground } from '@/types/slides'
 import { CLIPPATHS } from '@/configs/imageClip'
 import { getImageDataURL, getImageSize } from '@/utils/image'
 import useHistorySnapshot from '@/hooks/useHistorySnapshot'
+import { useI18n } from 'vue-i18n'
 
 import ElementOutline from '../common/ElementOutline.vue'
 import ElementShadow from '../common/ElementShadow.vue'
@@ -89,16 +90,18 @@ import ButtonGroup from '@/components/ButtonGroup.vue'
 import Popover from '@/components/Popover.vue'
 import NumberInput from '@/components/NumberInput.vue'
 
+const { t } = useI18n()
+
 const shapeClipPathOptions = CLIPPATHS
 const ratioClipOptions = [
   {
-    label: '纵横比（正方形）',
+    label: t('ppt.squareRatio'),
     children: [
       { key: '1:1', ratio: 1 / 1 },
     ],
   },
   {
-    label: '纵横比（纵向）',
+    label: t('ppt.portraitRatio'),
     children: [
       { key: '2:3', ratio: 3 / 2 },
       { key: '3:4', ratio: 4 / 3 },
@@ -107,18 +110,13 @@ const ratioClipOptions = [
     ],
   },
   {
-    label: '纵横比（横向）',
+    label: t('ppt.landscapeRatio'),
     children: [
       { key: '3:2', ratio: 2 / 3 },
       { key: '4:3', ratio: 3 / 4 },
       { key: '5:3', ratio: 3 / 5 },
       { key: '5:4', ratio: 4 / 5 },
-    ],
-  },
-  {
-    children: [
       { key: '16:9', ratio: 9 / 16 },
-      { key: '16:10', ratio: 10 / 16 },
     ],
   },
 ]

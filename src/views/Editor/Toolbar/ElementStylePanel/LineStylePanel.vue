@@ -1,7 +1,7 @@
 <template>
   <div class="line-style-panel">
     <div class="row">
-      <div style="width: 40%;">线条样式：</div>
+      <div style="width: 40%;">{{ t('ppt.lineStyle') }}：</div>
       <SelectCustom style="width: 60%;">
         <template #options>
           <div class="option" v-for="item in lineStyleOptions" :key="item" @click="updateLine({ style: item })">
@@ -14,7 +14,7 @@
       </SelectCustom>
     </div>
     <div class="row">
-      <div style="width: 40%;">线条颜色：</div>
+      <div style="width: 40%;">{{ t('ppt.lineColor') }}：</div>
       <Popover trigger="click" style="width: 60%;">
         <template #content>
           <ColorPicker
@@ -26,7 +26,7 @@
       </Popover>
     </div>
     <div class="row">
-      <div style="width: 40%;">线条宽度：</div>
+      <div style="width: 40%;">{{ t('ppt.lineWidth') }}：</div>
       <NumberInput 
         :value="handleLineElement.width" 
         @update:value="value => updateLine({ width: value })" 
@@ -35,7 +35,7 @@
     </div>
     
     <div class="row">
-      <div style="width: 40%;">起点样式：</div>
+      <div style="width: 40%;">{{ t('ppt.startStyle') }}：</div>
       <SelectCustom style="width: 60%;">
         <template #options>
           <div class="option" v-for="item in lineMarkerOptions" :key="item" @click="updateLine({ points: [item, handleLineElement.points[1]] })">
@@ -48,7 +48,7 @@
       </SelectCustom>
     </div>
     <div class="row">
-      <div style="width: 40%;">终点样式：</div>
+      <div style="width: 40%;">{{ t('ppt.endStyle') }}：</div>
       <SelectCustom style="width: 60%;">
         <template #options>
           <div class="option" v-for="item in lineMarkerOptions" :key="item" @click="updateLine({ points: [handleLineElement.points[0], item] })">
@@ -64,7 +64,7 @@
     <Divider />
 
     <div class="row">
-      <Button style="flex: 1;" @click="updateLine({ start: handleLineElement.end, end: handleLineElement.start })"><IconSwitch /> 交换方向</Button>
+      <Button style="flex: 1;" @click="updateLine({ start: handleLineElement.end, end: handleLineElement.start })"><IconSwitch /> {{ t('ppt.switchDirection') }}</Button>
     </div>
 
     <Divider />
@@ -78,6 +78,7 @@ import { storeToRefs } from 'pinia'
 import { useMainStore, useSlidesStore } from '@/store'
 import type { LinePoint, LineStyleType, PPTLineElement } from '@/types/slides'
 import useHistorySnapshot from '@/hooks/useHistorySnapshot'
+import { useI18n } from 'vue-i18n'
 
 import ElementShadow from '../common/ElementShadow.vue'
 import SVGLine from '../common/SVGLine.vue'
@@ -88,6 +89,8 @@ import Divider from '@/components/Divider.vue'
 import NumberInput from '@/components/NumberInput.vue'
 import SelectCustom from '@/components/SelectCustom.vue'
 import Popover from '@/components/Popover.vue'
+
+const { t } = useI18n()
 
 const slidesStore = useSlidesStore()
 const { handleElement } = storeToRefs(useMainStore())

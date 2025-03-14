@@ -1,7 +1,7 @@
 <template>
   <div class="shape-style-panel">
     <div class="title">
-      <span>点击替换形状</span>
+      <span>{{ t('ppt.clickToReplaceShape') }}</span>
       <IconDown />
     </div>
     <div class="shape-pool">
@@ -24,8 +24,8 @@
         :value="fillType" 
         @update:value="value => updateFillType(value as 'fill' | 'gradient')"
         :options="[
-          { label: '纯色填充', value: 'fill' },
-          { label: '渐变填充', value: 'gradient' },
+          { label: t('ppt.solidFill'), value: 'fill' },
+          { label: t('ppt.gradientFill'), value: 'gradient' },
         ]"
       />
       <div style="width: 10px;"></div>
@@ -44,8 +44,8 @@
         @update:value="value => updateGradient({ type: value as GradientType })"
         v-else
         :options="[
-          { label: '线性渐变', value: 'linear' },
-          { label: '径向渐变', value: 'radial' },
+          { label: t('ppt.linearGradient'), value: 'linear' },
+          { label: t('ppt.radialGradient'), value: 'radial' },
         ]"
       />
     </div>
@@ -60,7 +60,7 @@
         />
       </div>
       <div class="row">
-        <div style="width: 40%;">当前色块：</div>
+        <div style="width: 40%;">{{ t('ppt.currentColorBlock') }}：</div>
         <Popover trigger="click" style="width: 60%;">
           <template #content>
             <ColorPicker
@@ -72,7 +72,7 @@
         </Popover>
       </div>
       <div class="row" v-if="gradient.type === 'linear'">
-        <div style="width: 40%;">渐变角度：</div>
+        <div style="width: 40%;">{{ t('ppt.gradientAngle') }}：</div>
         <Slider
           style="width: 60%;"
           :min="0"
@@ -98,9 +98,9 @@
         :value="textAlign"
         @update:value="value => updateTextAlign(value as 'top' | 'middle' | 'bottom')"
       >
-        <RadioButton value="top" v-tooltip="'顶对齐'" style="flex: 1;"><IconAlignTextTopOne /></RadioButton>
-        <RadioButton value="middle" v-tooltip="'居中'" style="flex: 1;"><IconAlignTextMiddleOne /></RadioButton>
-        <RadioButton value="bottom" v-tooltip="'底对齐'" style="flex: 1;"><IconAlignTextBottomOne /></RadioButton>
+        <RadioButton value="top" v-tooltip="t('ppt.alignTop')" style="flex: 1;"><IconAlignTextTopOne /></RadioButton>
+        <RadioButton value="middle" v-tooltip="t('ppt.alignCenter')" style="flex: 1;"><IconAlignTextMiddleOne /></RadioButton>
+        <RadioButton value="bottom" v-tooltip="t('ppt.alignBottom')" style="flex: 1;"><IconAlignTextBottomOne /></RadioButton>
       </RadioGroup>
 
       <Divider />
@@ -115,12 +115,12 @@
 
     <div class="row">
       <CheckboxButton
-        v-tooltip="'双击连续使用'"
+        v-tooltip="t('ppt.formatPainter')"
         style="flex: 1;"
         :checked="!!shapeFormatPainter"
         @click="toggleShapeFormatPainter()"
         @dblclick="toggleShapeFormatPainter(true)"
-      ><IconFormatBrush /> 形状格式刷</CheckboxButton>
+      ><IconFormatBrush /> {{ t('ppt.shapeFormatPainter') }}</CheckboxButton>
     </div>
   </div>
 </template>
@@ -133,6 +133,7 @@ import type { GradientType, PPTShapeElement, Gradient, ShapeText } from '@/types
 import { type ShapePoolItem, SHAPE_LIST, SHAPE_PATH_FORMULAS } from '@/configs/shapes'
 import useHistorySnapshot from '@/hooks/useHistorySnapshot'
 import useShapeFormatPainter from '@/hooks/useShapeFormatPainter'
+import { useI18n } from 'vue-i18n'
 
 import ElementOpacity from '../common/ElementOpacity.vue'
 import ElementOutline from '../common/ElementOutline.vue'
@@ -150,6 +151,8 @@ import RadioGroup from '@/components/RadioGroup.vue'
 import Select from '@/components/Select.vue'
 import Popover from '@/components/Popover.vue'
 import GradientBar from '@/components/GradientBar.vue'
+
+const { t } = useI18n()
 
 const mainStore = useMainStore()
 const slidesStore = useSlidesStore()

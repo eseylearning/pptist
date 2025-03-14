@@ -1,6 +1,6 @@
 <template>
   <div class="video-style-panel">
-    <div class="title">视频预览封面</div>
+    <div class="title">{{ t('ppt.videoPosterPreview') }}</div>
     <div class="background-image-wrapper">
       <FileInput @change="files => setVideoPoster(files)">
         <div class="background-image">
@@ -11,11 +11,11 @@
       </FileInput>
     </div>
     <div class="row">
-      <Button style="flex: 1;" @click="updateVideo({ poster: '' })">重置封面</Button>
+      <Button style="flex: 1;" @click="updateVideo({ poster: '' })">{{ t('ppt.resetPoster') }}</Button>
     </div>
 
     <div class="row switch-row">
-      <div style="width: 40%;">自动播放：</div>
+      <div style="width: 40%;">{{ t('ppt.autoPlay') }}：</div>
       <div class="switch-wrapper" style="width: 60%;">
         <Switch 
           :value="handleVideoElement.autoplay" 
@@ -33,10 +33,13 @@ import { useMainStore, useSlidesStore } from '@/store'
 import type { PPTVideoElement } from '@/types/slides'
 import { getImageDataURL } from '@/utils/image'
 import useHistorySnapshot from '@/hooks/useHistorySnapshot'
+import { useI18n } from 'vue-i18n'
 
 import FileInput from '@/components/FileInput.vue'
 import Button from '@/components/Button.vue'
 import Switch from '@/components/Switch.vue'
+
+const { t } = useI18n()
 
 const slidesStore = useSlidesStore()
 const { handleElement } = storeToRefs(useMainStore())

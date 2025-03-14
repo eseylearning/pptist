@@ -68,7 +68,7 @@
 
     <div class="btns">
       <div class="left">
-        图表类型：{{ CHART_TYPE_MAP[chartType] }}
+        {{ t('ppt.chartType') }}：{{ CHART_TYPE_MAP[chartType] }}
         <Popover trigger="click" placement="top" v-model:value="chartTypeSelectVisible">
           <template #content>
             <PopoverMenuItem
@@ -78,13 +78,13 @@
               @click="chartType = item; chartTypeSelectVisible = false"
             >{{CHART_TYPE_MAP[item]}}</PopoverMenuItem>
           </template>
-          <span class="change">点击更换</span>
+          <span class="change">{{ t('ppt.clickToChange') }}</span>
         </Popover>
       </div>
       <div class="right">
-        <Button class="btn" @click="closeEditor()">取消</Button>
-        <Button class="btn" @click="clear()">清空数据</Button>
-        <Button type="primary" class="btn" @click="getTableData()">确认</Button>
+        <Button class="btn" @click="closeEditor()">{{ t('ppt.cancel') }}</Button>
+        <Button class="btn" @click="clear()">{{ t('ppt.clearData') }}</Button>
+        <Button type="primary" class="btn" @click="getTableData()">{{ t('ppt.confirm') }}</Button>
       </div>
     </div>
   </div>
@@ -99,6 +99,9 @@ import { pasteCustomClipboardString, pasteExcelClipboardString } from '@/utils/c
 import Button from '@/components/Button.vue'
 import Popover from '@/components/Popover.vue'
 import PopoverMenuItem from '@/components/PopoverMenuItem.vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const props = defineProps<{
   type: ChartType

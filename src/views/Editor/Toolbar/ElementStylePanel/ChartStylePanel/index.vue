@@ -1,7 +1,7 @@
 <template>
   <div class="chart-style-panel">
     <Button class="full-width-btn" @click="chartDataEditorVisible = true">
-      <IconEdit class="btn-icon" /> 编辑图表
+      <IconEdit class="btn-icon" /> {{ t('ppt.editChart') }}
     </Button>
 
     <Divider />
@@ -12,20 +12,20 @@
           @update:value="value => updateOptions({ stack: value })" 
           :value="stack"
           style="flex: 2;"
-        >堆叠样式</Checkbox>
+        >{{ t('ppt.stackStyle') }}</Checkbox>
         <Checkbox 
           v-if="handleChartElement.chartType === 'line'"
           @update:value="value => updateOptions({ lineSmooth: value })" 
           :value="lineSmooth"
           style="flex: 3;"
-        >使用平滑曲线</Checkbox>
+        >{{ t('ppt.useSmoothCurve') }}</Checkbox>
       </div>
   
       <Divider />
     </template>
 
     <div class="row">
-      <div style="width: 40%;">背景填充：</div>
+      <div style="width: 40%;">{{ t('ppt.backgroundFill') }}：</div>
       <Popover trigger="click" style="width: 60%;">
         <template #content>
           <ColorPicker
@@ -37,7 +37,7 @@
       </Popover>
     </div>
     <div class="row">
-      <div style="width: 40%;">文字颜色：</div>
+      <div style="width: 40%;">{{ t('ppt.fontColor') }}：</div>
       <Popover trigger="click" style="width: 60%;">
         <template #content>
           <ColorPicker
@@ -52,7 +52,7 @@
     <Divider />
 
     <div class="row" v-for="(color, index) in themeColors" :key="index">
-      <div style="width: 40%;">{{index === 0 ? '主题配色：' : ''}}</div>
+      <div style="width: 40%;">{{index === 0 ? t('ppt.themeColors') + '：' : ''}}</div>
       <Popover trigger="click" style="width: 60%;">
         <template #content>
           <ColorPicker
@@ -62,7 +62,7 @@
         </template>
         <div class="color-btn-wrap" style="width: 100%;">
           <ColorButton :color="color" />
-          <div class="delete-color-btn" v-tooltip="'删除'" @click.stop="deleteThemeColor(index)" v-if="index !== 0"><IconCloseSmall /></div>
+          <div class="delete-color-btn" v-tooltip="t('ppt.delete')" @click.stop="deleteThemeColor(index)" v-if="index !== 0"><IconCloseSmall /></div>
         </div>
       </Popover>
     </div>
@@ -84,7 +84,7 @@
             </div>
           </div>
         </template>
-        <Button first style="width: 100%;">推荐主题</Button>
+        <Button first style="width: 100%;">{{ t('ppt.recommendedThemes') }}</Button>
       </Popover>
       <Button
         last
@@ -92,7 +92,7 @@
         style="width: 60%;" 
         @click="addThemeColor()"
       >
-        <IconPlus class="btn-icon" /> 添加主题色
+        <IconPlus class="btn-icon" /> {{ t('ppt.addThemeColor') }}
       </Button>
     </ButtonGroup>
 
@@ -102,9 +102,14 @@
 
     <Modal
       v-model:visible="chartDataEditorVisible" 
-      :width="640"
+      :title="t('ppt.editChart')"
+      width="80%"
+      height="80%"
+      :footer="false"
+      :mask-closable="false"
+      destroy-on-close
     >
-      <ChartDataEditor 
+      <ChartDataEditor
         :type="handleChartElement.chartType"
         :data="handleChartElement.data"
         @close="chartDataEditorVisible = false"
@@ -122,6 +127,7 @@ import type { ChartData, ChartOptions, ChartType, PPTChartElement } from '@/type
 import emitter, { EmitterEvents } from '@/utils/emitter'
 import useHistorySnapshot from '@/hooks/useHistorySnapshot'
 import { CHART_PRESET_THEMES } from '@/configs/chart'
+import { useI18n } from 'vue-i18n'
 
 import ElementOutline from '../../common/ElementOutline.vue'
 import ChartDataEditor from './ChartDataEditor.vue'
@@ -133,6 +139,8 @@ import Checkbox from '@/components/Checkbox.vue'
 import Button from '@/components/Button.vue'
 import ButtonGroup from '@/components/ButtonGroup.vue'
 import Popover from '@/components/Popover.vue'
+
+const { t } = useI18n()
 
 const mainStore = useMainStore()
 const slidesStore = useSlidesStore()

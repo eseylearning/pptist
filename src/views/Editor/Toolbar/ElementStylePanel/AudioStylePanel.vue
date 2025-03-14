@@ -1,7 +1,7 @@
 <template>
   <div class="audio-style-panel">
     <div class="row">
-      <div style="width: 40%;">图标颜色：</div>
+      <div style="width: 40%;">{{ t('ppt.iconColor') }}：</div>
       <Popover trigger="click" style="width: 60%;">
         <template #content>
           <ColorPicker
@@ -14,7 +14,7 @@
     </div>
 
     <div class="row switch-row">
-      <div style="width: 40%;">自动播放：</div>
+      <div style="width: 40%;">{{ t('ppt.autoPlay') }}：</div>
       <div class="switch-wrapper" style="width: 60%;">
         <Switch 
           :value="handleAudioElement.autoplay" 
@@ -24,7 +24,7 @@
     </div>
 
     <div class="row switch-row">
-      <div style="width: 40%;">循环播放：</div>
+      <div style="width: 40%;">{{ t('ppt.loopPlay') }}：</div>
       <div class="switch-wrapper" style="width: 60%;">
         <Switch 
           :value="handleAudioElement.loop" 
@@ -41,11 +41,14 @@ import { storeToRefs } from 'pinia'
 import { useMainStore, useSlidesStore } from '@/store'
 import type { PPTAudioElement } from '@/types/slides'
 import useHistorySnapshot from '@/hooks/useHistorySnapshot'
+import { useI18n } from 'vue-i18n'
 
 import ColorButton from '@/components/ColorButton.vue'
 import ColorPicker from '@/components/ColorPicker/index.vue'
 import Switch from '@/components/Switch.vue'
 import Popover from '@/components/Popover.vue'
+
+const { t } = useI18n()
 
 const slidesStore = useSlidesStore()
 const { handleElement } = storeToRefs(useMainStore())
