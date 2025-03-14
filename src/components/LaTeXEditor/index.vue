@@ -3,10 +3,10 @@
     <div class="container">
       <div class="left">
         <div class="input-area">
-          <TextArea v-model:value="latex" placeholder="输入 LaTeX 公式" ref="textAreaRef" />
+          <TextArea v-model:value="latex" :placeholder="t('ppt.latexInputPlaceholder')" ref="textAreaRef" />
         </div>
         <div class="preview">
-          <div class="placeholder" v-if="!latex">公式预览</div>
+          <div class="placeholder" v-if="!latex">{{ t('ppt.latexPreview') }}</div>
           <div class="preview-content" v-else>
             <FormulaContent
               :width="518"
@@ -63,6 +63,7 @@ import { computed, onMounted, ref } from 'vue'
 import { hfmath } from './hfmath'
 import { FORMULA_LIST, SYMBOL_LIST } from '@/configs/latex'
 import message from '@/utils/message'
+import { useI18n } from "vue-i18n";
 
 import FormulaContent from './FormulaContent.vue'
 import SymbolContent from './SymbolContent.vue'
@@ -114,6 +115,8 @@ const symbolPool = computed(() => {
   const selectedSymbol = SYMBOL_LIST.find(item => item.type === selectedSymbolKey.value)
   return selectedSymbol?.children || []
 })
+
+const { t } = useI18n();
 
 onMounted(() => {
   if (props.value) latex.value = props.value

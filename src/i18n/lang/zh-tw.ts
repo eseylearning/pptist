@@ -357,7 +357,7 @@ export default {
     zoomInLeft: "從左放大進入",
     zoomInRight: "從右放大進入",
     zoomInUp: "向上放大進入",
-    slide: "滑入",
+    SlideIn: "滑入",
     slideInDown: "向下滑入",
     slideInLeft: "從右滑入",
     slideInRight: "從左滑入",
@@ -602,6 +602,13 @@ export default {
     symbolNumber: "序號",
     symbolMath: "數學",
     symbolArrow: "箭頭",
-    symbolGraph: "圖形"
+    symbolGraph: "圖形",
+    recentColors: "最近使用顏色",
+    eyedropperNotSupported: '當前瀏覽器不支持取色器功能',
+    eyedropperInitFailed: '取色器初始化失敗',
+    pressEscToClose: '按 ESC 鍵關閉取色器',
+    latexInputPlaceholder: "輸入 LaTeX 公式",
+    latexPreview: "公式預覽",
+    pleaseSelectLinkTarget: '請先選擇鏈接目標',
   },
 };

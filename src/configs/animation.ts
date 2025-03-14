@@ -62,7 +62,7 @@ export const ENTER_ANIMATIONS = [
   },
   {
     type: 'slide',
-    name: t('ppt.slide'),
+    name: t('ppt.SlideIn'),
     children: [
       { name: t('ppt.slideInDown'), value: 'slideInDown' },
       { name: t('ppt.slideInLeft'), value: 'slideInLeft' },

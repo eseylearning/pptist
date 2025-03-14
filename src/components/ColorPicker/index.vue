@@ -61,7 +61,7 @@
       ></div>
     </div>
 
-    <div class="recent-colors-title" v-if="recentColors.length">最近使用：</div>
+    <div class="recent-colors-title">{{ t('ppt.recentColors') }}</div>
     <div class="picker-presets">
       <div
         v-for="c in recentColors"
@@ -81,6 +81,7 @@ import tinycolor, { type ColorFormats } from 'tinycolor2'
 import { debounce } from 'lodash'
 import { toCanvas } from 'html-to-image'
 import message from '@/utils/message'
+import { useI18n } from "vue-i18n";
 
 import Alpha from './Alpha.vue'
 import Checkboard from './Checkboard.vue'
@@ -209,13 +210,16 @@ const changeColor = (value: ColorFormats.RGBA | ColorFormats.HSLA | ColorFormats
 const openEyeDropper = () => {
   const isSupportedEyeDropper = 'EyeDropper' in window
 
-  if (isSupportedEyeDropper) browserEyeDropper()
-  else customEyeDropper()
+  if (!isSupportedEyeDropper) {
+    message.warning(t('ppt.eyedropperNotSupported'))
+    return
+  }
+  browserEyeDropper()
 }
 
 // 原生取色吸管
 const browserEyeDropper = () => {
-  message.success('按 ESC 键关闭取色吸管', { duration: 0 })
+  message.success(t('ppt.pressEscToClose'), { duration: 0 })
 
   // eslint-disable-next-line
   const eyeDropper = new (window as any).EyeDropper()
@@ -300,10 +304,12 @@ const customEyeDropper = () => {
     canvasRef.addEventListener('mouseleave', handleMouseleave)
     window.addEventListener('mousedown', handleMousedown)
   }).catch(() => {
-    message.error('取色吸管初始化失败')
+    message.error(t('ppt.eyedropperInitFailed'))
     document.body.removeChild(maskRef)
   })
 }
+
+const { t } = useI18n();
 </script>
 
 <style lang="scss" scoped>
