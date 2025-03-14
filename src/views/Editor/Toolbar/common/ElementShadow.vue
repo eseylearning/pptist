@@ -1,14 +1,14 @@
 <template>
   <div class="element-shadow">
     <div class="row">
-      <div style="width: 40%;">启用阴影：</div>
+      <div style="width: 40%;">{{ t('ppt.enableShadow') }}</div>
       <div class="switch-wrapper" style="width: 60%;">
         <Switch :value="hasShadow" @update:value="value => toggleShadow(value)" />
       </div>
     </div>
     <template v-if="hasShadow && shadow">
       <div class="row">
-        <div style="width: 40%;">水平阴影：</div>
+        <div style="width: 40%;">{{ t('ppt.horizontalShadow') }}</div>
         <Slider 
           style="width: 60%;"
           :min="-10" 
@@ -19,7 +19,7 @@
         />
       </div>
       <div class="row">
-        <div style="width: 40%;">垂直阴影：</div>
+        <div style="width: 40%;">{{ t('ppt.verticalShadow') }}</div>
         <Slider
           style="width: 60%;"
           :min="-10"
@@ -30,7 +30,7 @@
         />
       </div>
       <div class="row">
-        <div style="width: 40%;">模糊距离：</div>
+        <div style="width: 40%;">{{ t('ppt.blurDistance') }}</div>
         <Slider
           style="width: 60%;"
           :min="1"
@@ -41,7 +41,7 @@
         />
       </div>
       <div class="row">
-        <div style="width: 40%;">阴影颜色：</div>
+        <div style="width: 40%;">{{ t('ppt.shadowColor') }}</div>
         <Popover trigger="click" style="width: 60%;">
           <template #content>
             <ColorPicker
@@ -62,12 +62,15 @@ import { storeToRefs } from 'pinia'
 import { useMainStore, useSlidesStore } from '@/store'
 import type { PPTElementShadow } from '@/types/slides'
 import useHistorySnapshot from '@/hooks/useHistorySnapshot'
+import { useI18n } from 'vue-i18n'
 
 import ColorButton from '@/components/ColorButton.vue'
 import ColorPicker from '@/components/ColorPicker/index.vue'
 import Switch from '@/components/Switch.vue'
 import Slider from '@/components/Slider.vue'
 import Popover from '@/components/Popover.vue'
+
+const { t } = useI18n()
 
 const slidesStore = useSlidesStore()
 const { theme } = storeToRefs(slidesStore)

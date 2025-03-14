@@ -155,6 +155,13 @@ export default {
     soft: "Soft",
     warm: "Warm",
     bright: "Bright",
-    vivid: "Vivid"
+    vivid: "Vivid",
+    flipVertically: "Flip Vertically",
+    flipHorizontally: "Flip Horizontally",
+    enableOutline: "Enable Outline",
+    outlineStyle: "Outline Style",
+    outlineColor: "Outline Color",
+    outlineWidth: "Outline Width",
+    enableShadow: "Enable Shadow"
   },
 };

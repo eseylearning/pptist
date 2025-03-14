@@ -1,7 +1,7 @@
 <template>
   <div class="element-opacity">
     <div class="row">
-      <div style="width: 40%;">不透明度：</div>
+      <div style="width: 40%;">{{ t('ppt.opacity') }}</div>
       <Slider
         :min="0"
         :max="1"
@@ -19,7 +19,10 @@ import { ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMainStore, useSlidesStore } from '@/store'
 import useHistorySnapshot from '@/hooks/useHistorySnapshot'
+import { useI18n } from 'vue-i18n'
 import Slider from '@/components/Slider.vue'
+
+const { t } = useI18n()
 
 const slidesStore = useSlidesStore()
 const { handleElement } = storeToRefs(useMainStore())

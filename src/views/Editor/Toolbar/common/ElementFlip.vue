@@ -5,12 +5,12 @@
         style="flex: 1;"
         :checked="flipV"
         @click="updateFlip({ flipV: !flipV })"
-      ><IconFlipVertically /> 垂直翻转</CheckboxButton>
+      ><IconFlipVertically /> {{ t('ppt.flipVertically') }}</CheckboxButton>
       <CheckboxButton 
         style="flex: 1;"
         :checked="flipH"
         @click="updateFlip({ flipH: !flipH })"
-      ><IconFlipHorizontally /> 水平翻转</CheckboxButton>
+      ><IconFlipHorizontally /> {{ t('ppt.flipHorizontally') }}</CheckboxButton>
     </ButtonGroup>
   </div>
 </template>
@@ -21,9 +21,12 @@ import { storeToRefs } from 'pinia'
 import { useMainStore, useSlidesStore } from '@/store'
 import type { ImageOrShapeFlip } from '@/types/slides'
 import useHistorySnapshot from '@/hooks/useHistorySnapshot'
+import { useI18n } from 'vue-i18n'
 
 import CheckboxButton from '@/components/CheckboxButton.vue'
 import ButtonGroup from '@/components/ButtonGroup.vue'
+
+const { t } = useI18n()
 
 const slidesStore = useSlidesStore()
 const { handleElement } = storeToRefs(useMainStore())

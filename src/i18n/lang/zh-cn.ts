@@ -155,6 +155,12 @@ export default {
     soft: "柔和",
     warm: "暖色",
     bright: "明亮",
-    vivid: "鲜艳"
+    vivid: "鲜艳",
+    flipHorizontally: "水平翻转",
+    enableOutline: "启用边框",
+    outlineStyle: "边框样式",
+    outlineColor: "边框颜色",
+    outlineWidth: "边框粗细",
+    enableShadow: "启用阴影"
   },
 };
