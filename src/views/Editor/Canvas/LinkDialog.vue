@@ -10,7 +10,7 @@
       class="input"
       v-if="type === 'web'" 
       v-model:value="address" 
-      :placeholder="t('ppt.enterLink')"
+      :placeholder="t('ppt.enterLinks')"
     />
 
     <Select 
