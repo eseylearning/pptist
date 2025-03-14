@@ -1,55 +1,58 @@
 import type { ChartData } from '@/types/slides'
+import i18n from '@/i18n'
+
+const { t } = i18n.global
 
 export const CHART_TYPE_MAP: { [key: string]: string } = {
-  'bar': '柱状图',
-  'column': '条形图',
-  'line': '折线图',
-  'area': '面积图',
-  'scatter': '散点图',
-  'pie': '饼图',
-  'ring': '环形图',
-  'radar': '雷达图',
+  'bar': t('ppt.barChart'),
+  'column': t('ppt.columnChart'),
+  'line': t('ppt.lineChart'),
+  'area': t('ppt.areaChart'),
+  'scatter': t('ppt.scatterChart'),
+  'pie': t('ppt.pieChart'),
+  'ring': t('ppt.ringChart'),
+  'radar': t('ppt.radarChart'),
 }
 
 export const CHART_DEFAULT_DATA: { [key: string]: ChartData } = {
   'bar': {
-    labels: ['类别1', '类别2', '类别3', '类别4', '类别5'],
-    legends: ['系列1', '系列2'],
+    labels: [t('ppt.category1'), t('ppt.category2'), t('ppt.category3'), t('ppt.category4'), t('ppt.category5')],
+    legends: [t('ppt.series1'), t('ppt.series2')],
     series: [[12, 19, 5, 2, 18], [7, 11, 13, 21, 9]],
   },
   'column': {
-    labels: ['类别1', '类别2', '类别3', '类别4', '类别5'],
-    legends: ['系列1', '系列2'],
+    labels: [t('ppt.category1'), t('ppt.category2'), t('ppt.category3'), t('ppt.category4'), t('ppt.category5')],
+    legends: [t('ppt.series1'), t('ppt.series2')],
     series: [[12, 19, 5, 2, 18], [7, 11, 13, 21, 9]],
   },
   'line': {
-    labels: ['类别1', '类别2', '类别3', '类别4', '类别5'],
-    legends: ['系列1', '系列2'],
+    labels: [t('ppt.category1'), t('ppt.category2'), t('ppt.category3'), t('ppt.category4'), t('ppt.category5')],
+    legends: [t('ppt.series1'), t('ppt.series2')],
     series: [[12, 19, 5, 2, 18], [7, 11, 13, 21, 9]],
   },
   'pie': {
-    labels: ['类别1', '类别2', '类别3', '类别4', '类别5'],
-    legends: ['值'],
+    labels: [t('ppt.category1'), t('ppt.category2'), t('ppt.category3'), t('ppt.category4'), t('ppt.category5')],
+    legends: [t('ppt.value')],
     series: [[12, 19, 5, 2, 18]],
   },
   'ring': {
-    labels: ['类别1', '类别2', '类别3', '类别4', '类别5'],
-    legends: ['值'],
+    labels: [t('ppt.category1'), t('ppt.category2'), t('ppt.category3'), t('ppt.category4'), t('ppt.category5')],
+    legends: [t('ppt.value')],
     series: [[12, 19, 5, 2, 18]],
   },
   'area': {
-    labels: ['类别1', '类别2', '类别3', '类别4', '类别5'],
-    legends: ['系列1', '系列2'],
+    labels: [t('ppt.category1'), t('ppt.category2'), t('ppt.category3'), t('ppt.category4'), t('ppt.category5')],
+    legends: [t('ppt.series1'), t('ppt.series2')],
     series: [[12, 19, 5, 2, 18], [7, 11, 13, 21, 9]],
   },
   'radar': {
-    labels: ['类别1', '类别2', '类别3', '类别4', '类别5'],
-    legends: ['系列1', '系列2'],
+    labels: [t('ppt.category1'), t('ppt.category2'), t('ppt.category3'), t('ppt.category4'), t('ppt.category5')],
+    legends: [t('ppt.series1'), t('ppt.series2')],
     series: [[12, 19, 5, 2, 18], [7, 11, 13, 21, 9]],
   },
   'scatter': {
-    labels: ['坐标1', '坐标2', '坐标3', '坐标4', '坐标5'],
-    legends: ['X', 'Y'],
+    labels: [t('ppt.coordinate1'), t('ppt.coordinate2'), t('ppt.coordinate3'), t('ppt.coordinate4'), t('ppt.coordinate5')],
+    legends: [t('ppt.xAxis'), t('ppt.yAxis')],
     series: [[12, 19, 5, 2, 18], [7, 11, 13, 21, 9]],
   },
 }

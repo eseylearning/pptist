@@ -5,8 +5,10 @@ import { useSlidesStore } from '@/store'
 import { KEYS } from '@/configs/hotkey'
 import { ANIMATION_CLASS_PREFIX } from '@/configs/animation'
 import message from '@/utils/message'
+import { useI18n } from 'vue-i18n'
 
 export default () => {
+  const { t } = useI18n()
   const slidesStore = useSlidesStore()
   const { slides, slideIndex, formatedAnimations } = storeToRefs(slidesStore)
 
@@ -52,7 +54,7 @@ export default () => {
       elRef.style.setProperty('--animate-duration', `${animation.duration}ms`)
       elRef.classList.add(animationName, `${ANIMATION_CLASS_PREFIX}animated`)
 
-      // 执行动画结束，将“退场”以外的动画状态清除
+      // 执行动画结束，将"退场"以外的动画状态清除
       const handleAnimationEnd = () => {
         if (animation.type !== 'out') {
           elRef.style.removeProperty('--animate-duration')
@@ -135,7 +137,7 @@ export default () => {
     }
     else {
       if (loopPlay.value) turnSlideToIndex(slides.value.length - 1)
-      else throttleMassage('已经是第一页了')
+      else throttleMassage(t('ppt.isFirstPage'))
     }
     inAnimation.value = false
   }
@@ -151,7 +153,7 @@ export default () => {
     else {
       if (loopPlay.value) turnSlideToIndex(0)
       else {
-        throttleMassage('已经是最后一页了')
+        throttleMassage(t('ppt.isLastPage'))
         closeAutoPlay()
       }
       inAnimation.value = false
@@ -162,7 +164,7 @@ export default () => {
   const autoPlayInterval = ref(2500)
   const autoPlay = () => {
     closeAutoPlay()
-    message.success('开始自动放映')
+    message.success(t('ppt.autoPlayStarted'))
     autoPlayTimer.value = setInterval(execNext, autoPlayInterval.value)
   }
 

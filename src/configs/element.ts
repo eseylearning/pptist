@@ -1,13 +1,17 @@
+import i18n from '@/i18n'
+
+const { t } = i18n.global
+
 export const ELEMENT_TYPE_ZH: { [key: string]: string } = {
-  text: '文本',
-  image: '图片',
-  shape: '形状',
-  line: '线条',
-  chart: '图表',
-  table: '表格',
-  video: '视频',
-  audio: '音频',
-  latex: '公式',
+  text: t('ppt.text'),
+  image: t('ppt.image'),
+  shape: t('ppt.shape'),
+  line: t('ppt.line'),
+  chart: t('ppt.chart'),
+  table: t('ppt.table'),
+  video: t('ppt.video'),
+  audio: t('ppt.audio'),
+  latex: t('ppt.latex'),
 }
 
 export const MIN_SIZE: { [key: string]: number } = {

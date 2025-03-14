@@ -1,74 +1,78 @@
+import i18n from '@/i18n'
+
+const { t } = i18n.global
+
 export const FORMULA_LIST = [
   {
-    label: '高斯公式',
+    label: t('ppt.latexGaussFormula'),
     latex: `\\int\\int\\int _ { \\Omega } \\left( \\frac { \\partial {P} } { \\partial {x} } + \\frac { \\partial {Q} } { \\partial {y} } + \\frac { \\partial {R} }{ \\partial {z} } \\right) \\mathrm { d } V = \\oint _ { \\partial \\Omega } ( P \\cos \\alpha + Q \\cos \\beta + R \\cos \\gamma ) \\mathrm{ d} S`
   },
   {
-    label: '傅里叶级数',
+    label: t('ppt.latexFourierSeries'),
     latex: `f(x) = \\frac {a_0} 2 + \\sum_{n = 1}^\\infty {({a_n}\\cos {nx} + {b_n}\\sin {nx})}`,
   },
   {
-    label: '泰勒展开式',
+    label: t('ppt.latexTaylorExpansion'),
     latex: `e ^ { x } = 1 + \\frac { x } { 1 ! } + \\frac { x ^ { 2 } } { 2 ! } + \\frac { x ^ { 3 } } { 3 ! } + ... , \\quad - \\infty < x < \\infty`,
   },
   {
-    label: '定积分',
+    label: t('ppt.latexDefiniteIntegral'),
     latex: `\\lim_ { n \\rightarrow + \\infty } \\sum _ { i = 1 } ^ { n } f \\left[ a + \\frac { i } { n } ( b - a ) \\right] \\frac { b - a } { n } = \\int _ { a } ^ { b } f ( x ) dx`,
   },
   {
-    label: '三角恒等式1',
+    label: t('ppt.latexTrigonometricIdentity1'),
     latex: `\\sin \\alpha \\pm \\sin \\beta = 2 \\sin \\frac { 1 } { 2 } ( \\alpha \\pm \\beta ) \\cos \\frac { 1 } { 2 } ( \\alpha \\mp \\beta )`,
   },
   {
-    label: '三角恒等式2',
+    label: t('ppt.latexTrigonometricIdentity2'),
     latex: `\\cos \\alpha + \\cos \\beta = 2 \\cos \\frac { 1 } { 2 } ( \\alpha + \\beta ) \\cos \\frac { 1 } { 2 } ( \\alpha - \\beta )`,
   },
   {
-    label: '和的展开式',
+    label: t('ppt.latexExpansionFormula'),
     latex: `( 1 + x ) ^ { n } = 1 + \\frac { n x } { 1 ! } + \\frac { n ( n - 1 ) x ^ { 2 } } { 2 ! } + ...`,
   },
   {
-    label: '欧拉公式',
+    label: t('ppt.latexEulerFormula'),
     latex: ` e^{ix} = \\cos {x} + i\\sin {x}`,
   },
   {
-    label: '贝努利方程',
+    label: t('ppt.latexBernoulliEquation'),
     latex: `\\frac {dy} {dx} + P(x)y = Q(x) y^n ({n} \\not= {0,1})`,
   },
   {
-    label: '全微分方程',
+    label: t('ppt.latexTotalDifferentialEquation'),
     latex: `du(x,y) = P(x,y)dx + Q(x,y)dy = 0`,
   },
   {
-    label: '非齐次方程',
+    label: t('ppt.latexNonHomogeneousEquation'),
     latex: `y = (\\int Q(x) e^{\\int {P(x)dx}}dx + C)e^{-\\int {P(x)dx}}`,
   },
   {
-    label: '柯西中值定理',
+    label: t('ppt.latexCauchyMeanValue'),
     latex: `\\frac{{f(b) - f(a)}}{{F(b) - F(a)}} = \\frac{{f'(\\xi )}}{{F'(\\xi )}}`,
   },
   {
-    label: '拉格朗日中值定理',
+    label: t('ppt.latexLagrangeMeanValue'),
     latex: `f(b) - f(a) = f'(\\xi )(b - a)`,
   },
   {
-    label: '导数公式',
+    label: t('ppt.latexDerivativeFormula'),
     latex: `(\\arcsin x)' = \\frac{1}{{\\sqrt {1 - x^2} }}`,
   },
   {
-    label: '三角函数积分',
+    label: t('ppt.latexTrigonometricIntegral'),
     latex: `\\int {tgxdx = - \\ln \\left| {\\cos x} \\right| + C}`,
   },
   {
-    label: '二次曲面',
+    label: t('ppt.latexQuadricSurface'),
     latex: `\\frac{{{x^2}}}{{{a^2}}} + \\frac{{{y^2}}}{{{b^2}}} - \\frac{{{z^2}}}{{{c^2}}} = 1`,
   },
   {
-    label: '二阶微分',
+    label: t('ppt.latexSecondOrderDifferential'),
     latex: `\\frac {{d^2}y} {dx^2} + P(x) \\frac {dy} {dx} + Q(x)y = f(x)`,
   },
   {
-    label: '方向导数',
+    label: t('ppt.latexDirectionalDerivative'),
     latex: `\\frac{{\\partial f}}{{\\partial l}} = \\frac{{\\partial f}}{{\\partial x}}\\cos \\phi + \\frac{{\\partial f}}{{\\partial y}}\\sin \\phi`,
   },
 ]
@@ -76,7 +80,7 @@ export const FORMULA_LIST = [
 export const SYMBOL_LIST = [
   {
     type: 'operators',
-    label: '数学',
+    label: t('ppt.latexMath'),
     children: [
       { latex: '\\cdot' },
       { latex: '\\pm' },
@@ -186,7 +190,7 @@ export const SYMBOL_LIST = [
   },
   {
     type: 'verbatim',
-    label: '函数',
+    label: t('ppt.latexFunction'),
     children: [
       { latex: '\\log' },
       { latex: '\\ln' },
@@ -215,7 +219,7 @@ export const SYMBOL_LIST = [
   },
   {
     type: 'greek',
-    label: '希腊字母',
+    label: t('ppt.latexGreekLetters'),
     children: [
       { latex: '\\alpha' },
       { latex: '\\beta' },
