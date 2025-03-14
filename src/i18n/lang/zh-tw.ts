@@ -5,7 +5,7 @@ export default {
     inputSectionName: "輸入節名稱",
     untitledSection: "無標題節",
     defaultSection: "默認節",
-    slideCount: "幻燈片 {current} / {total}",
+    slideCount: "幻燈片",
     deleteSection: "刪除節",
     deleteSectionAndSlides: "刪除節和幻燈片",
     deleteAllSections: "刪除所有節",
