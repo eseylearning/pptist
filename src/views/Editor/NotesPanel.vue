@@ -3,7 +3,7 @@
     class="notes-panel"
     :width="300"
     :height="560"
-    :title="`{{ t('ppt.notesForSlide') }}${slideIndex + 1}`"
+    :title="`${t('ppt.slideCount')}${slideIndex + 1}${t('ppt.notesForPage')}`"
     :left="-270"
     :top="90"
     :minWidth="300"
@@ -33,9 +33,11 @@
               </div>
             </div>
             <div class="btns">
-              <div class="btn reply" @click="replyNoteId = note.id">{{ t('ppt.reply') }}</div>
+              <div class="btn reply" @click="replyNoteId = note.id">
+                {{ t("ppt.reply") }}
+              </div>
               <div class="btn delete" @click.stop="deleteNote(note.id)">
-                {{ t('ppt.delete') }}
+                {{ t("ppt.delete") }}
               </div>
             </div>
           </div>
@@ -61,7 +63,7 @@
                     class="btn delete"
                     @click.stop="deleteReply(note.id, reply.id)"
                   >
-                    {{ t('ppt.delete') }}
+                    {{ t("ppt.delete") }}
                   </div>
                 </div>
               </div>
@@ -77,27 +79,35 @@
               @enter.prevent="createNoteReply()"
             />
             <div class="reply-btns">
-              <Button class="btn" size="small" @click="replyNoteId = ''"
-                >{{ t('ppt.cancel') }}</Button
-              >
+              <Button class="btn" size="small" @click="replyNoteId = ''">{{
+                t("ppt.cancel")
+              }}</Button>
               <Button
                 class="btn"
                 size="small"
                 type="primary"
                 @click="createNoteReply()"
-                >{{ t('ppt.reply') }}</Button
+                >{{ t("ppt.reply") }}</Button
               >
             </div>
           </div>
         </div>
-        <div class="empty" v-if="!notes.length">{{ t('ppt.noNotesForPage') }}</div>
+        <div class="empty" v-if="!notes.length">
+          {{ t("ppt.noNotesForPage") }}
+        </div>
       </div>
       <div class="send">
         <TextArea
           ref="textAreaRef"
           v-model:value="content"
           :padding="6"
-          :placeholder="t('ppt.enterNoteContent', { element: handleElementId ? t('ppt.selectedElement') : t('ppt.currentSlide') })"
+          :placeholder="
+            t('ppt.enterNoteContent', {
+              element: handleElementId
+                ? t('ppt.selectedElement')
+                : t('ppt.currentSlide'),
+            })
+          "
           :rows="2"
           @focus="
             replyNoteId = '';
@@ -117,7 +127,7 @@
             class="btn"
             style="flex: 12"
             @click="createNote()"
-            >{{ t('ppt.addNote') }}</Button
+            >{{ t("ppt.addNote") }}</Button
           >
         </div>
       </div>
@@ -135,7 +145,7 @@ import type { Note } from "@/types/slides";
 import MoveablePanel from "@/components/MoveablePanel.vue";
 import TextArea from "@/components/TextArea.vue";
 import Button from "@/components/Button.vue";
-import { useI18n } from 'vue-i18n';
+import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
 const slidesStore = useSlidesStore();

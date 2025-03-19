@@ -51,7 +51,7 @@ export default {
     clear: "Clear",
     inputNoteContent: "Enter speaker notes",
     inputReplyContent: "Enter reply content",
-    notesForPage: "Notes for Slide",
+    notesForPage: "Notes",
     clearNotesForPage: "Clear notes for this page",
     enterSearchContent: "Enter search content",
     enterReplaceContent: "Enter replace content",
