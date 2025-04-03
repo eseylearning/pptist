@@ -9,7 +9,6 @@
     }
   ],
   "compilerOptions": {
-    "allowSemicolons": true,
     "paths": {
       "@/*": ["./src/*"]
     },
