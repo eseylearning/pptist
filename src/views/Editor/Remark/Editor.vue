@@ -2,7 +2,7 @@
   <div class="editor" v-click-outside="hideMenuInstance">
     <div class="prosemirror-editor" ref="editorViewRef"></div>
     <div class="view">
-      本功能遵循开源 <span class="code" @click="showCode">查看代码</span>
+      <span class="code" @click="showCode">本功能遵循开源</span>
     </div>
     <div class="menu" ref="menuRef">
       <button :class="{ active: attr?.bold }" @click="execCommand('bold')">
@@ -279,8 +279,9 @@ onUnmounted(() => {
   font-size: 14px;
   padding-right: 20px;
   .code {
-    color: #0078d4;
+    color: #bbb;
     cursor: pointer;
+    font-size: 12px;
   }
 }
 .prosemirror-editor {
