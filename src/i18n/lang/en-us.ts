@@ -612,5 +612,13 @@ export default {
     latexInputPlaceholder: "Enter LaTeX formula",
     latexPreview: "Formula Preview",
     pleaseSelectLinkTarget: "Please select link target first",
+    style: "Style",
+    position: "Position",
+    animation: "Animation",
+    design: "Design",
+    transition: "Transition",
+    animationIn: "Entrance",
+    animationOut: "Exit",
+    animationEmphasis: "Emphasis",
   },
 };

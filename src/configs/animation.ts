@@ -2,6 +2,7 @@ import type { TurningMode } from '@/types/slides'
 import i18n from '@/i18n'
 
 const { t } = i18n.global
+console.log(i18n.global.locale.value);
 
 export const ANIMATION_DEFAULT_DURATION = 1000
 export const ANIMATION_DEFAULT_TRIGGER = 'click'

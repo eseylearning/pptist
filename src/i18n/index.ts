@@ -10,8 +10,9 @@ export enum LanguageType {
   ZH_TW = "zh-tw",
   EN_US = "en-us",
 }
-
-const lang: any = "zh-tw";
+const url = location.search;
+const urlParams = new URLSearchParams(url);
+const lang: any = urlParams.get("lang") || "zh-tw";
 
 // 通过选项创建 VueI18n 实例
 const i18n = createI18n({

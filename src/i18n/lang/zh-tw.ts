@@ -611,5 +611,13 @@ export default {
     latexInputPlaceholder: "輸入LaTeX公式",
     latexPreview: "公式預覽",
     pleaseSelectLinkTarget: "請先選取連結目標",
+    style: "樣式",
+    position: "位置",
+    animation: "動畫",
+    design: "設計",
+    transition: "切換",
+    animationIn: "進場",
+    animationOut: "退場",
+    animationEmphasis: "強調",
   },
 };

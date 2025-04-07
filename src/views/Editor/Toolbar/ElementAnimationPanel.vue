@@ -174,9 +174,9 @@ const { handleElement, handleElementId } = storeToRefs(useMainStore())
 const { currentSlide, formatedAnimations, currentSlideAnimations } = storeToRefs(slidesStore)
 
 const tabs: TabItem[] = [
-  { key: 'in', label: '入场', color: '#68a490' },
-  { key: 'out', label: '退场', color: '#d86344' },
-  { key: 'attention', label: '强调', color: '#e8b76a' },
+  { key: 'in', label: t('ppt.animationIn'), color: '#68a490' },
+  { key: 'out', label: t('ppt.animationOut'), color: '#d86344' },
+  { key: 'attention', label: t('ppt.animationEmphasis'), color: '#e8b76a' },
 ]
 const activeTab = ref('in')
 const animateIn = ref(false)

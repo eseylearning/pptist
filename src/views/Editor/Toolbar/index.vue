@@ -16,6 +16,7 @@
 import { computed, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMainStore } from '@/store'
+import { useI18n } from 'vue-i18n'
 import { ToolbarStates } from '@/types/toolbar'
 
 import ElementStylePanel from './ElementStylePanel/index.vue'
@@ -34,30 +35,31 @@ interface ElementTabs {
 
 const mainStore = useMainStore()
 const { activeElementIdList, handleElement, toolbarState } = storeToRefs(mainStore)
+const { t } = useI18n()
 
 const elementTabs = computed<ElementTabs[]>(() => {
   if (handleElement.value?.type === 'text') {
     return [
-      { label: '样式', key: ToolbarStates.EL_STYLE },
-      { label: '符号', key: ToolbarStates.SYMBOL },
-      { label: '位置', key: ToolbarStates.EL_POSITION },
-      { label: '动画', key: ToolbarStates.EL_ANIMATION },
+      { label: t('ppt.style'), key: ToolbarStates.EL_STYLE },
+      { label: t('ppt.symbolLetter'), key: ToolbarStates.SYMBOL },
+      { label: t('ppt.position'), key: ToolbarStates.EL_POSITION },
+      { label: t('ppt.animation'), key: ToolbarStates.EL_ANIMATION },
     ]
   }
   return [
-    { label: '样式', key: ToolbarStates.EL_STYLE },
-    { label: '位置', key: ToolbarStates.EL_POSITION },
-    { label: '动画', key: ToolbarStates.EL_ANIMATION },
+    { label: t('ppt.style'), key: ToolbarStates.EL_STYLE },
+    { label: t('ppt.position'), key: ToolbarStates.EL_POSITION },
+    { label: t('ppt.animation'), key: ToolbarStates.EL_ANIMATION },
   ]
 })
 const slideTabs = [
-  { label: '设计', key: ToolbarStates.SLIDE_DESIGN },
-  { label: '切换', key: ToolbarStates.SLIDE_ANIMATION },
-  { label: '动画', key: ToolbarStates.EL_ANIMATION },
+  { label: t('ppt.design'), key: ToolbarStates.SLIDE_DESIGN },
+  { label: t('ppt.transition'), key: ToolbarStates.SLIDE_ANIMATION },
+  { label: t('ppt.animation'), key: ToolbarStates.EL_ANIMATION },
 ]
 const multiSelectTabs = [
-  { label: '样式', key: ToolbarStates.EL_STYLE },
-  { label: '位置', key: ToolbarStates.MULTI_POSITION },
+  { label: t('ppt.style'), key: ToolbarStates.EL_STYLE },
+  { label: t('ppt.position'), key: ToolbarStates.MULTI_POSITION },
 ]
 
 const setToolbarState = (value: ToolbarStates) => {
