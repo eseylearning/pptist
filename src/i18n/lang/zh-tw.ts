@@ -86,6 +86,8 @@ export default {
     align: "對齊",
     horizontal: "水平",
     vertical: "垂直",
+    width: "寬度",
+    height: "高度",
     unlockAspectRatio: "解除長寬比鎖定",
     lockAspectRatio: "鎖定長寬比",
     alignLeft: "靠左對齊",
@@ -619,5 +621,8 @@ export default {
     animationIn: "進場",
     animationOut: "退場",
     animationEmphasis: "強調",
+    noNotesForPage: "本頁暫無批註",
+    enterNoteContent: "輸入批註（為目前頁投影片）",
+    addNote: "添加批註",
   },
 };

@@ -86,6 +86,8 @@ export default {
     align: "对齐",
     horizontal: "水平",
     vertical: "垂直",
+    width: "宽度",
+    height: "高度",
     unlockAspectRatio: "解除宽高比锁定",
     lockAspectRatio: "宽高比锁定",
     alignLeft: "左对齐",
@@ -619,5 +621,8 @@ export default {
     animationIn: "入场",
     animationOut: "退场",
     animationEmphasis: "强调",
+    noNotesForPage: "本页暂无批注",
+    enterNoteContent: "输入批注（为当前页幻灯片）",
+    addNote: "添加批注",
   },
 };

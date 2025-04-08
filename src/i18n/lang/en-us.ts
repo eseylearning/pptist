@@ -86,6 +86,8 @@ export default {
     align: "Align",
     horizontal: "Horizontal",
     vertical: "Vertical",
+    width: "Width",
+    height: "Height",
     unlockAspectRatio: "Unlock Aspect Ratio",
     lockAspectRatio: "Lock Aspect Ratio",
     alignLeft: "Align Left",
@@ -605,8 +607,7 @@ export default {
     symbolArrow: "Arrows",
     symbolGraph: "Shapes",
     recentColors: "Recently Used Colors",
-    eyedropperNotSupported:
-      "Current Browser Does Not Support Color Picker",
+    eyedropperNotSupported: "Current Browser Does Not Support Color Picker",
     eyedropperInitFailed: "Color Picker Initialization Failed",
     pressEscToClose: "Press ESC to Close Color Picker",
     latexInputPlaceholder: "Enter LaTeX formula",
@@ -620,5 +621,8 @@ export default {
     animationIn: "Entrance",
     animationOut: "Exit",
     animationEmphasis: "Emphasis",
+    noNotesForPage: "No notes for this page yet",
+    enterNoteContent: "Enter a comment (for the current slide)",
+    addNote: "Add note",
   },
 };
