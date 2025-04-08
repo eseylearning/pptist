@@ -153,7 +153,7 @@
           @update:value="(value) => updateRotate(value)"
           style="width: 45%"
         >
-          <template #prefix> {{ t("ai.rotate") }}： </template>
+          <template #prefix> {{ t("ppt.rotate") }}： </template>
         </NumberInput>
         <div style="width: 7%"></div>
         <div class="text-btn" @click="updateRotate45('-')" style="width: 24%">

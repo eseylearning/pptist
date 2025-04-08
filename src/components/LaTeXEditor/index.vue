@@ -3,48 +3,51 @@
     <div class="container">
       <div class="left">
         <div class="input-area">
-          <TextArea v-model:value="latex" :placeholder="t('ppt.latexInputPlaceholder')" ref="textAreaRef" />
+          <TextArea
+            v-model:value="latex"
+            :placeholder="t('ppt.latexInputPlaceholder')"
+            ref="textAreaRef"
+          />
         </div>
         <div class="preview">
-          <div class="placeholder" v-if="!latex">{{ t('ppt.latexPreview') }}</div>
+          <div class="placeholder" v-if="!latex">
+            {{ t("ppt.latexPreview") }}
+          </div>
           <div class="preview-content" v-else>
-            <FormulaContent
-              :width="518"
-              :height="138"
-              :latex="latex"
-            />
+            <FormulaContent :width="518" :height="138" :latex="latex" />
           </div>
         </div>
       </div>
       <div class="right">
-        <Tabs 
-          :tabs="tabs" 
-          v-model:value="toolbarState" 
-          card
-        />
+        <Tabs :tabs="tabs" v-model:value="toolbarState" card />
         <div class="content">
           <div class="symbol" v-if="toolbarState === 'symbol'">
-            <Tabs 
-              :tabs="symbolTabs" 
-              v-model:value="selectedSymbolKey" 
-              spaceBetween 
-              :tabsStyle="{ margin: '10px 10px 0' }" 
+            <Tabs
+              :tabs="symbolTabs"
+              v-model:value="selectedSymbolKey"
+              spaceBetween
+              :tabsStyle="{ margin: '10px 10px 0' }"
             />
             <div class="symbol-pool">
-              <div class="symbol-item" v-for="item in symbolPool" :key="item.latex" @click="insertSymbol(item.latex)">
+              <div
+                class="symbol-item"
+                v-for="item in symbolPool"
+                :key="item.latex"
+                @click="insertSymbol(item.latex)"
+              >
                 <SymbolContent :latex="item.latex" />
               </div>
             </div>
           </div>
           <div class="formula" v-else>
-            <div class="formula-item" v-for="item in formulaList" :key="item.label">
-              <div class="formula-title">{{item.label}}</div>
+            <div
+              class="formula-item"
+              v-for="item in formulaList"
+              :key="item.label"
+            >
+              <div class="formula-title">{{ item.label }}</div>
               <div class="formula-item-content" @click="latex = item.latex">
-                <FormulaContent
-                  :width="236"
-                  :height="60"
-                  :latex="item.latex"
-                />
+                <FormulaContent :width="236" :height="60" :latex="item.latex" />
               </div>
             </div>
           </div>
@@ -52,96 +55,100 @@
       </div>
     </div>
     <div class="footer">
-      <Button class="btn" @click="emit('close')">取消</Button>
-      <Button class="btn" type="primary" @click="update()">确定</Button>
+      <Button class="btn" @click="emit('close')">{{ t("ppt.cancel") }}</Button>
+      <Button class="btn" type="primary" @click="update()">{{ t("ppt.confirm") }}</Button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue'
-import { hfmath } from './hfmath'
-import { FORMULA_LIST, SYMBOL_LIST } from '@/configs/latex'
-import message from '@/utils/message'
+import { computed, onMounted, ref } from "vue";
+import { hfmath } from "./hfmath";
+import { FORMULA_LIST, SYMBOL_LIST } from "@/configs/latex";
+import message from "@/utils/message";
 import { useI18n } from "vue-i18n";
 
-import FormulaContent from './FormulaContent.vue'
-import SymbolContent from './SymbolContent.vue'
-import Button from '../Button.vue'
-import TextArea from '../TextArea.vue'
-import Tabs from '../Tabs.vue'
+import FormulaContent from "./FormulaContent.vue";
+import SymbolContent from "./SymbolContent.vue";
+import Button from "../Button.vue";
+import TextArea from "../TextArea.vue";
+import Tabs from "../Tabs.vue";
+const { t } = useI18n();
 
 interface TabItem {
-  key: 'symbol' | 'formula'
-  label: string
+  key: "symbol" | "formula";
+  label: string;
 }
 
 const tabs: TabItem[] = [
-  { label: '常用符号', key: 'symbol' },
-  { label: '预置公式', key: 'formula' },
-]
+  { label: t("ppt.CommonSymbols"), key: "symbol" },
+  { label: t("ppt.Presetformulas"), key: "formula" },
+];
 
 interface LatexResult {
-  latex: string
-  path: string
-  w: number
-  h: number
+  latex: string;
+  path: string;
+  w: number;
+  h: number;
 }
 
-const props = withDefaults(defineProps<{
-  value?: string
-}>(), {
-  value: '',
-})
+const props = withDefaults(
+  defineProps<{
+    value?: string;
+  }>(),
+  {
+    value: "",
+  }
+);
 
 const emit = defineEmits<{
-  (event: 'update', payload: LatexResult): void
-  (event: 'close'): void
-}>()
+  (event: "update", payload: LatexResult): void;
+  (event: "close"): void;
+}>();
 
-const formulaList = FORMULA_LIST
+const formulaList = FORMULA_LIST;
 
-const symbolTabs = SYMBOL_LIST.map(item => ({
+const symbolTabs = SYMBOL_LIST.map((item) => ({
   label: item.label,
   key: item.type,
-}))
+}));
 
-const latex = ref('')
-const toolbarState = ref<'symbol' | 'formula'>('symbol')
-const textAreaRef = ref<InstanceType<typeof TextArea>>()
+const latex = ref("");
+const toolbarState = ref<"symbol" | "formula">("symbol");
+const textAreaRef = ref<InstanceType<typeof TextArea>>();
 
-const selectedSymbolKey = ref(SYMBOL_LIST[0].type)
+const selectedSymbolKey = ref(SYMBOL_LIST[0].type);
 const symbolPool = computed(() => {
-  const selectedSymbol = SYMBOL_LIST.find(item => item.type === selectedSymbolKey.value)
-  return selectedSymbol?.children || []
-})
-
-const { t } = useI18n();
+  const selectedSymbol = SYMBOL_LIST.find(
+    (item) => item.type === selectedSymbolKey.value
+  );
+  return selectedSymbol?.children || [];
+});
 
 onMounted(() => {
-  if (props.value) latex.value = props.value
-})
+  if (props.value) latex.value = props.value;
+});
 
 const update = () => {
-  if (!latex.value) return message.error('公式不能为空')
+  if (!latex.value) return message.error(t("ppt.formulanotempty"));
 
-  const eq = new hfmath(latex.value)
-  const pathd = eq.pathd({})
-  const box = eq.box({})
-  
-  emit('update', {
+  const eq = new hfmath(latex.value);
+  const pathd = eq.pathd({});
+  const box = eq.box({});
+
+  emit("update", {
     latex: latex.value,
     path: pathd,
     w: box.w + 32,
     h: box.h + 32,
-  })
-}
+  });
+};
 
 const insertSymbol = (latex: string) => {
-  if (!textAreaRef.value) return
-  textAreaRef.value.focus()
-  document.execCommand('insertText', false, latex)
-}
+  if (!textAreaRef.value) return;
+  textAreaRef.value.focus();
+  document.execCommand("insertText", false, latex);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -166,7 +173,8 @@ const insertSymbol = (latex: string) => {
     height: 100% !important;
     border-color: $borderColor !important;
     padding: 10px !important;
-    font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier,
+      monospace;
 
     &:focus {
       box-shadow: none !important;

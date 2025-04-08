@@ -156,7 +156,7 @@ export const SYMBOL_LIST = [
   },
   {
     type: 'group',
-    label: '组合',
+    label: t('ppt.group'),
     children: [
       { latex: '\\frac{a}{b}' },
       { latex: '\\frac{dx}{dx}' },
