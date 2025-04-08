@@ -50,15 +50,15 @@ const timer = ref<any>(null);
 const url = location.search;
 const urlParams = new URLSearchParams(url);
 
-
-
 watch(
   () => slides.value,
   (val, old) => {
     if (firstPost.value) {
       return;
     }
+
     nextTick(() => {
+      snapshotStore.initSnapshotDatabase();
       firstPost.value = true;
       saveServer();
     });
@@ -82,7 +82,6 @@ onMounted(async () => {
   importPPTXFile(obj.url || firstUrl);
 
   await deleteDiscardedDB();
-  snapshotStore.initSnapshotDatabase();
 
   timer.value = setInterval(() => {
     if (firstPost.value) {
