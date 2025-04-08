@@ -7,13 +7,13 @@
         <Divider type="vertical" style="height: 20px;" />
         <Popover class="more-icon" trigger="click" v-model:value="moreVisible" :offset="10">
           <template #content>
-            <PopoverMenuItem center @click="toggleNotesPanel(); moreVisible = false">{{ t('ppt.notesPanel') }}</PopoverMenuItem>
+            <!-- <PopoverMenuItem center @click="toggleNotesPanel(); moreVisible = false">{{ t('ppt.notesPanel') }}</PopoverMenuItem> -->
             <PopoverMenuItem center @click="toggleSelectPanel(); moreVisible = false">{{ t('ppt.selectPanel') }}</PopoverMenuItem>
             <PopoverMenuItem center @click="toggleSraechPanel(); moreVisible = false">{{ t('ppt.searchAndReplace') }}</PopoverMenuItem>
           </template>
           <IconMore class="handler-item" />
         </Popover>
-        <IconComment class="handler-item" :class="{ 'active': showNotesPanel }" v-tooltip="t('ppt.notesPanel')" @click="toggleNotesPanel()" />
+        <!-- <IconComment class="handler-item" :class="{ 'active': showNotesPanel }" v-tooltip="t('ppt.notesPanel')" @click="toggleNotesPanel()" /> -->
         <IconMoveOne class="handler-item" :class="{ 'active': showSelectPanel }" v-tooltip="t('ppt.selectPanel')" @click="toggleSelectPanel()" />
         <IconSearch class="handler-item" :class="{ 'active': showSearchPanel }" v-tooltip="t('ppt.searchAndReplace')" @click="toggleSraechPanel()" />
       </div>

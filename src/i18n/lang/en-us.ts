@@ -624,5 +624,6 @@ export default {
     noNotesForPage: "No notes for this page yet",
     enterNoteContent: "Enter a comment (for the current slide)",
     addNote: "Add note",
+    enterReplyContent: "Enter reply content",
   },
 };

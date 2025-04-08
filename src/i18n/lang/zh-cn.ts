@@ -160,7 +160,7 @@ export default {
     warm: "暖色",
     bright: "明亮",
     vivid: "鲜艳",
-    flipVertically: "垂直翻轉",
+    flipVertically: "垂直翻转",
     flipHorizontally: "水平翻转",
     enableOutline: "启用边框",
     outlineStyle: "边框样式",
@@ -624,5 +624,6 @@ export default {
     noNotesForPage: "本页暂无批注",
     enterNoteContent: "输入批注（为当前页幻灯片）",
     addNote: "添加批注",
+    enterReplyContent: "输入回复内容",
   },
 };

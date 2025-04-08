@@ -624,5 +624,6 @@ export default {
     noNotesForPage: "本頁暫無批註",
     enterNoteContent: "輸入批註（為目前頁投影片）",
     addNote: "添加批註",
+    enterReplyContent: "輸入回復內容",
   },
 };
