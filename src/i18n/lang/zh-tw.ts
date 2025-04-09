@@ -637,5 +637,6 @@ export default {
     doubleClickBlank: "按兩下空白處",
     rightClick: "滑鼠右鍵",
     doubleClickToEdit: "雙擊編輯",
+    Nomatches: "未查找到匹配項",
   },
 };

@@ -103,7 +103,7 @@ const presetStyles = [
   {
     label: t('ppt.largeTitle'),
     style: {
-      fontSize: '26px',
+      fontSize: '20px',
       fontWeight: 700,
     },
     cmd: [
@@ -139,7 +139,7 @@ const presetStyles = [
   {
     label: t('ppt.bodyTextSmall'),
     style: {
-      fontSize: '18px',
+      fontSize: '14px',
     },
     cmd: [
       { command: 'clear' },
