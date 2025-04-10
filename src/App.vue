@@ -95,16 +95,16 @@ onUnmounted(() => {
 });
 
 const saveServer = async () => {
-  const file1 = await exportPPTX(slides.value, true, true);
-  // const file2 = await exportSpecificFile(slides.value);
-  try {
-    const res1 = await api.uploadFile(file1);
+  // const file1 = await exportPPTX(slides.value, true, true);
+  // // const file2 = await exportSpecificFile(slides.value);
+  // try {
+  //   const res1 = await api.uploadFile(file1);
 
-    const ppt_url = res1.info.file_url;
-    // const pptist = res2.info.file_url;
+  //   const ppt_url = res1.info.file_url;
+  //   // const pptist = res2.info.file_url;
 
-    api.resultupdate({ ppt_url, pptist: "xxx", id: ipptId.value });
-  } catch (e) {}
+  //   api.resultupdate({ ppt_url, pptist: "xxx", id: ipptId.value });
+  // } catch (e) {}
 };
 
 // 应用注销时向 localStorage 中记录下本次 indexedDB 的数据库ID，用于之后清除数据库
